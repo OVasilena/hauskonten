@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<MenuBar xmlns:fx="http://javafx.com/fxml"           
+         fx:controller="hauskontenverwaltung.MenuController">
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+    <Menu text="Stammdaten">
+        <MenuItem text="Eigentümer" onAction="#handleEigentuemerverwaltung"/>
+        <MenuItem text="Kostenkonten" onAction="#handleKostenkonten"/>
+    </Menu>
+    <Menu text="Buchhaltung">
+        <MenuItem text="Buchen" onAction="#handleBuchung"/>    
+    </Menu>
+</MenuBar>          
+        
+ 
