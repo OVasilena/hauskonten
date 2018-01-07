@@ -16,8 +16,15 @@
     </stylesheets>
        
     <children>
+        <Label text="HKV 0.0.1"
+               styleClass="startTitle"
+               layoutX="25" layoutY="20"/>
         <Label text="Softwarelösung für die Immobilienwirtschaft/Hausverwaltung"
-               styleClass="startText"/>
+               styleClass="startText"
+               layoutX="25" layoutY="60"/>
+        <Label text="Hersteller: O.Podlubnaja"
+               styleClass="startText"
+               layoutX="25" layoutY="80"/>
     </children>
     
 </AnchorPane>
