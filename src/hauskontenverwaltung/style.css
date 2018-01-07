@@ -4,7 +4,35 @@
 */
 
 .startPane {
-    -fx-padding: 10px;
-    -fx-background-color:lightblue;
+    -fx-padding: 10px;   
+    -fx-background-image: url("background_image.jpg");
+    -fx-background-size: 640 640;     
 }
 
+#pane{
+    -fx-background-color:lightblue;
+    -fx-background-image: url("background_image.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 640;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
+.startText {
+    -fx-color: white;
+}
+.lbl {
+    -fx-pref-width: 100px;
+    -fx-alignment: CENTER_RIGHT;
+}
+.tf, .btn {
+     -fx-pref-width: 100px;
+}
+#lblStatus {
+    -fx-background-color: white;
+    -fx-pref-width: 405px;
+    -fx-padding: 2px;
+}
+#tblAnzeige {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 300px;
+}

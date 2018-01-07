@@ -16,6 +16,8 @@
     </stylesheets>
        
     <children>
-        <Label text="Begrüßung"/>
+        <Label text="Softwarelösung für die Immobilienwirtschaft/Hausverwaltung"
+               styleClass="startText"/>
     </children>
+    
 </AnchorPane>

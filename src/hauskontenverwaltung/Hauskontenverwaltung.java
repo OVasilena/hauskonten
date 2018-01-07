@@ -31,12 +31,12 @@ public class Hauskontenverwaltung extends Application{
     public Hauskontenverwaltung()
     {
         eigliste = new Eigentuemerliste();
-        //kkliste = new Kostenkontenliste();
-       // buchungsliste = new Buchungsliste();
+        kkliste = new Kostenkontenliste();
+       buchungsliste = new Buchungsliste();
     }
     
     public static void main(String[] args) {
-        //launch();
+        launch();
         new Hauskontenverwaltung();
         
     }

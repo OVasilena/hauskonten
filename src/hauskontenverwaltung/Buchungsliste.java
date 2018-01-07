@@ -6,6 +6,7 @@
 package hauskontenverwaltung;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,14 +16,15 @@ import javafx.collections.ObservableList;
  */
 public class Buchungsliste {
     // ÜberwachbareListe von Typ Buchung
-    private ObservableList<Buchung> buchungsListe;
+    private ArrayList<Buchung> buchungsListe;
         
     
     public Buchungsliste()
     {
         // erzeugen des Listenobjektes
-        // ArrayList -> indexorientierte überwachbare Liste
-        this.buchungsListe = FXCollections.observableArrayList();
+        //ArrayList -> indexorientierte überwachbare Liste
+        //this.buchungsListe = FXCollections.observableArrayList();
+        buchungsListe = new ArrayList(); 
         testdaten();
         for(Buchung bhg: buchungsListe) 
             System.out.println(bhg);
