@@ -16,39 +16,50 @@ import javafx.collections.ObservableList;
  */
 public class Buchungsliste {
     // ÜberwachbareListe von Typ Buchung
-    private ArrayList<Buchung> buchungsListe;
+    private ObservableList<Buchung> buchungsListe;
         
     
     public Buchungsliste()
     {
         // erzeugen des Listenobjektes
         //ArrayList -> indexorientierte überwachbare Liste
-        //this.buchungsListe = FXCollections.observableArrayList();
-        buchungsListe = new ArrayList(); 
+        this.buchungsListe = FXCollections.observableArrayList();
+        
         testdaten();
-        for(Buchung bhg: buchungsListe) 
-            System.out.println(bhg);
+        //for(Buchung bhg: buchungsListe) 
+        //    System.out.println(bhg);
     }
     
     public void testdaten()
     {
         buchungsListe.add(new Buchung
-        (LocalDate.of(2017,07,01),265.00,"E","Hausgeld Frau Meyer GH06","EK106"));
+        (LocalDate.of(2017,07,01),265.00,true,"Hausgeld Frau Meyer GH06","EK106"));
         buchungsListe.add(new Buchung
-        (LocalDate.of(2017,07,12),356.78,"A","Rechnung Firma \"Ungeziefer Ex\"","K123"));
+        (LocalDate.of(2017,07,12),356.78,false,"Rechnung Firma \"Ungeziefer Ex\"","K123"));
         buchungsListe.add(new Buchung
-        (LocalDate.of(2017,07,20),1286.25,"A","Rechnung Straßenreinigung","K076"));
+        (LocalDate.of(2017,07,20),1286.25,false,"Rechnung Straßenreinigung","K076"));
         buchungsListe.add(new Buchung
-        (LocalDate.of(2017,8,3),265, "E","Hausgeld Frau Müller","EK103"));
+        (LocalDate.of(2017,8,3),265, true,"Hausgeld Frau Müller","EK103"));
         buchungsListe.add(new Buchung
-        (LocalDate.of(2017,8,03),265.00,"E","Hausgeld Frau Schmidt","EK104"));
+        (LocalDate.of(2017,8,03),265.00,true,"Hausgeld Frau Schmidt","EK104"));
        
     }
+          
     
-    public void kontonummerWahl()
+    public boolean addBuchung(Buchung b)
     {
-        
-            
+        return buchungsListe.add(b);
     }
+    
+    /**
+     * Methode liefert eine überwachbare Liste von Typ Person
+     * @return liste ObservableList
+     */
+    public ObservableList<Buchung> getListe()
+    {
+        return buchungsListe;
+    }
+    
+
     
 }

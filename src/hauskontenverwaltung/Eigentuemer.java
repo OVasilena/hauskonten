@@ -1,6 +1,8 @@
 package hauskontenverwaltung;
 
 import java.io.Serializable;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 
 /**
@@ -23,13 +25,16 @@ public class Eigentuemer implements Serializable
     private final double saldo = 0;
     private static int id = 102;
     private int nummer;
-   
+    
+
     /**
     * Standard Konstruktor
     */
-
     public Eigentuemer() 
-    {      
+    { 
+        nummer = ++id;
+        this.kontonummer = "EK" + Integer.toString(nummer);           
+        this.kontostand = saldo;
     }
 
     
@@ -50,6 +55,7 @@ public class Eigentuemer implements Serializable
         this.kontostand = saldo;
         
     }
+
 
     // --- Vorname ---
     /**
@@ -113,16 +119,27 @@ public class Eigentuemer implements Serializable
     public String getKontonummer()
     {
         return this.kontonummer;
-    }
+    }   
+    
 
     // --- Kontostand ---
     /**
      * Methode setzt den Kontostand des Eigentümers
      * @param buchung double
      */
-    public void setKontostand(double buchung)
+    public void setEinzahlen(double buchung)
     {
         this.kontostand +=buchung;
+        //this.kontostand = saldo;
+        
+    }
+     /**
+     * Methode setzt den Kontostand des Eigentümers
+     * @param buchung double
+     */
+    public void setAuszahlen(double buchung)
+    {
+        this.kontostand -=buchung;
         //this.kontostand = saldo;
         
     }
@@ -142,7 +159,38 @@ public class Eigentuemer implements Serializable
                 + "\nEigentümername: " + getNachname() + ", "
                 + getVorname() + "\nWohnungsnummer: "
                 + getWohnungsnummer() + "\nKontostand: " 
-                + getKontostand() + " €\n";
+                + getKontostand();
     }
     
+    // Methoden liefern die Eigenschaften
+    
+    public SimpleStringProperty kontonummerProperty()
+    {
+        return new SimpleStringProperty(this.kontonummer);
+    }
+    
+    public SimpleStringProperty vornameProperty()
+    {
+        return new SimpleStringProperty(this.vorname);
+    }
+    
+    public SimpleStringProperty nachnameProperty()
+    {
+        return new SimpleStringProperty(this.nachname);
+    } 
+    
+    public SimpleStringProperty wohnungsnumerProperty()
+    {
+        return new SimpleStringProperty(this.wohnungsnummer);
+    } 
+    
+    public SimpleDoubleProperty kontostandProperty()
+    {
+        return new SimpleDoubleProperty(this.kontostand);
+    }
+    
+        public boolean isKonto(String zahl)
+    {
+        return this.getKontonummer().equals(zahl);
+    }
 }

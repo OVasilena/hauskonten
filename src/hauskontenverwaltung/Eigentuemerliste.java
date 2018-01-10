@@ -13,108 +13,159 @@ import java.io.ObjectInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-
+import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
- * Klasse beschreibt eine Liste für Eigentümern, welche überwacht 
- * wird. Das heißt, bei Änderungen an einem Eigentümer werden 
+ * Klasse beschreibt eine Liste für Eigentümern, welche überwacht
+ * wird. Das heißt, bei Änderungen an einem Eigentümer werden
  * diese sofort in die Liste übernommen.
+ *
  * @author opodlubnaja
  */
 public class Eigentuemerliste {
+
+    private double gstand = 0;
+    // ÜberwachbareListe von Typ Eigentuemer    
+    private ObservableList<Eigentuemer> eigentuemerListe;
+            
     
-    // ÜberwachbareListe von Typ Eigentuemer
-    //private ObservableList<Eigentuemer> eigentuemerListe;
-    private ArrayList<Eigentuemer> eigentuemerListe;
-    public Eigentuemerliste()
-    {
+    public Eigentuemerliste() {
         // erzeugen des Listenobjektes
         // ArrayList -> indexorientierte überwachbare Liste
-        //this.eigentuemerListe = FXCollections.observableArrayList();
-        this.eigentuemerListe = new ArrayList();
-        testdaten();
+        this.eigentuemerListe = FXCollections.observableArrayList();
+        
+        //testdaten();
         //for(Eigentuemer eigen:eigentuemerListe) 
         //    System.out.println(eigen);
-        try
-        {
+        /*try {
             speichernListe();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("Fehlermeldung");
         }
-        
-        System.out.println("********ausgeben Datei*******");
-        try
-        {
+        */
+        //System.out.println("********ausgeben Datei*******");
+        /*try {
             auslesenDatei();
-            
-        }
-        catch (IOException e)
-        {
-            System.out.println("Ausgabe nicht möglich\n " +e.getMessage());
-        }
-        catch (ClassNotFoundException ce)
-        {
+
+        } catch (IOException e) {
+            System.out.println("Ausgabe nicht möglich\n " + e.getMessage());
+        } catch (ClassNotFoundException ce) {
             System.out.println("Klass nicht gefunden" + ce.getMessage());
-        }
-                
+        }*/
+
     }
-    
-     /**
+
+    /**
      * Methode zum Anlegen der Testdaten
      */
-    private void testdaten()
-    {
+    private void testdaten() {
         // Testdaten aus der Dokumentation
-        
-        eigentuemerListe.add(new Eigentuemer
-                                ("Gabriele", "Müller","SFL07"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Cordula", "Schmidt", "VH11"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Sibille", "Lehmann", "SFR04"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Sabine", "Meyer", "GH06"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Irene", "Weiß", "VHL08"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Alex", "Braun", "VHL09"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Anton", "Kraft", "SFL02"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Thomas", "Geert", "SFL03"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Yurf", "Aure", "SFR01"));
-        eigentuemerListe.add(new Eigentuemer
-                                ("Mary", "Belkin", "SFR05"));
-        
-        
-       
-        
+
+        eigentuemerListe.add(new Eigentuemer("Gabriele", "Müller", "SFL07"));
+        eigentuemerListe.add(new Eigentuemer("Cordula", "Schmidt", "VH11"));
+        eigentuemerListe.add(new Eigentuemer("Sibille", "Lehmann", "SFR04"));
+        eigentuemerListe.add(new Eigentuemer("Sabine", "Meyer", "GH06"));
+        eigentuemerListe.add(new Eigentuemer("Irene", "Weiß", "VHL08"));
+        eigentuemerListe.add(new Eigentuemer("Alex", "Braun", "VHL09"));
+        eigentuemerListe.add(new Eigentuemer("Anton", "Kraft", "SFL02"));
+        eigentuemerListe.add(new Eigentuemer("Thomas", "Geert", "SFL03"));
+        eigentuemerListe.add(new Eigentuemer("Yurf", "Aure", "SFR01"));
+        eigentuemerListe.add(new Eigentuemer("Mary", "Belkin", "SFR05"));
+
+    }
+
+    // Zufügen einen Eigentümer
+    public void addEigentuemer(String vorname, String nachname, String whg) {
+        Eigentuemer eig = new Eigentuemer();
+        String nummer = eig.getKontonummer();
+        System.out.println("Neue Eigentümer Kontonummer: " + nummer);
+        eig.setVorname(vorname);
+        eig.setNachname(nachname);
+        eig.setWohnungsnummer(whg);
+        System.out.println(eig);
+        System.out.println("**** Ende neue Eigentümer ****");
+        eigentuemerListe.add(eig);
+
     }
     
-    // Serialisierung eines Objektes
-    public void speichernListe() throws IOException
+    public void addEigentuemer(Eigentuemer e)
     {
+         eigentuemerListe.add(e);
+    }
+    
+    /**
+     * Methode berechnen Gesamtkontostand 
+     * @return 
+     */
+    public double getGesamtStand()
+    {
+        
+        for(Eigentuemer eg: eigentuemerListe)
+        {
+           gstand =+eg.getKontostand();
+        }
+        return gstand;   
+    }
+    
+    /**
+     * Methode liefert eine überwachbare Liste von Typ Person
+     *
+     * @return liste ObservableList
+     */
+    public ObservableList<Eigentuemer> getListe() {
+        return eigentuemerListe;
+    }
+
+    public int sizeListe() {
+        return eigentuemerListe.size();
+    }
+
+    public boolean isEmpty() {
+        return eigentuemerListe.isEmpty();
+    }
+
+    // Serialisierung eines Objektes
+    public void speichernListe() throws IOException {
+        testdaten();
         ObjectOutputStream aus = new ObjectOutputStream(
-                                 new FileOutputStream("test2.stm"));
-        aus.writeObject(eigentuemerListe);
+                new FileOutputStream("test4.stm"));
+        // Konvertieren ObservableList to ArrayList
+        ArrayList<Eigentuemer> eigListe = new ArrayList<Eigentuemer>(eigentuemerListe);
+        System.out.println("**** gespeicherte Objekte als ArrayList ****");
+        for(Eigentuemer eg : eigListe) System.out.println(eg);
+        aus.writeObject(eigListe);
+        System.out.println("************* ENDE SpeichernListe() *****************");
         aus.close();
     }
-    
+
     // Deserialisierung eines Objektes
-    public void auslesenDatei() throws IOException, ClassNotFoundException
-    {
-        ObjectInputStream ein = new ObjectInputStream( new FileInputStream("test2.stm"));
-        ArrayList<Eigentuemer> eig_neu = (ArrayList<Eigentuemer>)ein.readObject();
-        
-       for(Eigentuemer eg: eig_neu)
+    public void auslesenDatei(File file) throws IOException, ClassNotFoundException {
+        ObjectInputStream ein = new ObjectInputStream(new FileInputStream(file));
+        ArrayList<Eigentuemer> eig_neu = (ArrayList<Eigentuemer>) ein.readObject();
+        //  Konvertieren ArrayList to ObservableList
+        eigentuemerListe = FXCollections.observableArrayList(eig_neu);
+        System.out.println("***** auslesenDatei als ObservableListe ******");
+        for (Eigentuemer eg : eigentuemerListe) {
             System.out.println(eg);
-        ein.close();
+        }
         
+        
+        ein.close();
+
+    }  
+    
+    /**
+     * Methode gibt einen Eigentümer an der Index-Stelle zurück
+     * @param index int
+     * @return Person
+     */
+    public Eigentuemer getPerson(int index)
+    {
+        return eigentuemerListe.get(index);
     }
-    
-    
-    
+
 }

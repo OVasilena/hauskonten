@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Kostenkonto implements Serializable {
     private String kontonummer;
     private String bezeichnung;
-    private Double kontostand;    
+    private double kontostand;    
     private double saldo = 0;
     java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00"); 
     

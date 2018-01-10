@@ -1,14 +1,20 @@
 package hauskontenverwaltung;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -18,55 +24,63 @@ import javafx.stage.Stage;
 public class Hauskontenverwaltung extends Application{
     
     // Objekte der Hauskontenverwaltung
-    private static Stage fenster;
-    private static BorderPane root = new BorderPane();
+    private Stage fenster;
+    private BorderPane root = new BorderPane();
     private Eigentuemerliste eigliste;
     private Kostenkontenliste kkliste;
     private Buchungsliste buchungsliste;
+    private File dateiPath = new File(System.getProperty("user.dir"));
+    private MenuController mcontroller;
+    public FXMLLoader loader;
 
     /**
-     * @param args the command line arguments
-     */
-    
+     * Konstruktor diefiniert zu verwaltenden Listen
+     */    
     public Hauskontenverwaltung()
     {
+        
         eigliste = new Eigentuemerliste();
-        kkliste = new Kostenkontenliste();
-       buchungsliste = new Buchungsliste();
+        //kkliste = new Kostenkontenliste();
+        buchungsliste = new Buchungsliste();
+        
     }
+    
     
     public static void main(String[] args) {
         launch();
-        new Hauskontenverwaltung();
+        
         
     }
+      
     
-    public static BorderPane getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
     
-    public static Stage getFenster() {
+    public Stage getFenster() {
         return fenster;
     }
-
+    
+   
     @Override
     public void start(Stage primaryStage) throws Exception {
         fenster = primaryStage;
-        
-        // loading MenuBar, StartPane FXML              
-        MenuBar menuBar = FXMLLoader.load(getClass().getResource("Menubar.fxml"));
-        AnchorPane startPane = FXMLLoader.load(getClass().getResource("StartPane.fxml"));
-        
-        // Konstruieren unsere Scene         
-        root.setTop(menuBar);
-        root.setCenter(startPane);        
+        loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("StartPane.fxml"));
+        root = loader.load();   
         Scene scene = new Scene(root);
         
         // Fenstereigenschaften
         fenster.setScene(scene);
         fenster.setTitle("Hauskontenverwaltung");
+       
+        this.mcontroller = loader.getController();        
+        mcontroller.setVerwaltung(this);
+        
+        
         fenster.show();        
     }    
+    
     
     
 }

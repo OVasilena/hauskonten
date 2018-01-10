@@ -7,17 +7,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane styleClass="eigPane"
-            prefHeight="640.0" 
-            prefWidth="640.0"
+<AnchorPane styleClass="eigPane"            
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="hauskontenverwaltung.EigentuemerController">
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
     <children>
-        <HBox layoutX="20" layoutY="25">
-            <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
+        <HBox styleClass="hbox">
+            <GridPane  styleClass="egrid">
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
                        GridPane.columnIndex="0" 
@@ -38,7 +36,7 @@
                 <TextField fx:id="tfNummer"
                        text=""
                        editable ="false"
-                       styleClass="tf" 
+                       styleClass="tfKonto" 
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="0"/>
                 <TextField fx:id="tfNachname"
@@ -56,12 +54,13 @@
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="3"/>
                 </GridPane>
-            <VBox  layoutX="500" layoutY="25">
+            <VBox styleClass="vbox">
                 <Button fx:id="btnNeu"
                        text="Neu"
+                       onAction="#handleNeu"
                        styleClass="btn" />
                 <Button fx:id="btnAendern"
-                       text="Ändren"
+                       text="Ändern"
                        styleClass="btn"/>
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
@@ -91,7 +90,7 @@
             </columns>
         </TableView>
     </ScrollPane>
-        <HBox layoutX="20" layoutY="600">
+        <HBox layoutX="20" layoutY="580">
             <Label fx:id="lblStand" text="Hier wird Gesamt Kontostand angezeigt"/>
         </HBox>       
        

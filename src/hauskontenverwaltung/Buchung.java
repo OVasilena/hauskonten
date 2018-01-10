@@ -8,6 +8,10 @@ package hauskontenverwaltung;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 
 /**
@@ -23,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 public class Buchung implements Serializable {
     private LocalDate buchDatum;
     private Double betrag;
-    private String vorgangsart;
+    private boolean vorgangsart;
     private String beschreibung;
     private String kontonummer;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -33,7 +37,7 @@ public class Buchung implements Serializable {
    }
     
    public Buchung(LocalDate datum, double betrag, 
-                   String vorgangsart,String beschreibung, 
+                   boolean vorgangsart,String beschreibung, 
                    String kontonummer)
    {
        this.buchDatum = datum;
@@ -61,6 +65,15 @@ public class Buchung implements Serializable {
     {
         return this.buchDatum;
     }
+    /**
+     * Methode liefert das Property-Objekt für den Buchungstag
+     * @return SimpleObjectProperty@lt;LocalDate@gt;
+     */
+    public SimpleObjectProperty<LocalDate> buchungProperty()
+    {
+        return new SimpleObjectProperty(this.buchDatum);
+        
+    }
     
 
     // --- Betrag ---
@@ -72,17 +85,30 @@ public class Buchung implements Serializable {
     {
         return this.betrag;
     }
+    
+    public SimpleDoubleProperty betragProperty()
+    {
+        return new SimpleDoubleProperty(this.betrag);
+    }
+    
 
     // --- Vorgangsart ---
-    public void setVorgang(String vorgang)
+    public void setVorgang(boolean vorgang)
     {
         this.vorgangsart = vorgang;
     }
-    public String getVorgang()
+    public boolean getVorgang()
     {
         return this.vorgangsart;
     }
+    public SimpleStringProperty vorgangProperty()
+    {
+        if (this.vorgangsart == true) return new SimpleStringProperty("E");
+        else return new SimpleStringProperty("A");
+    }
  
+    
+    
     // --- Beschreibung ---
     public void setBeschreibung(String beschreibung)
     {
@@ -91,6 +117,10 @@ public class Buchung implements Serializable {
     public String getBeschreibung()
     {
         return this.beschreibung;
+    }
+    public SimpleStringProperty beschreibungProperty()
+    {
+        return new SimpleStringProperty(this.beschreibung);
     }
 
     
@@ -102,6 +132,10 @@ public class Buchung implements Serializable {
     public String getKontonummer()
     {
         return this.kontonummer;
+    }
+    public SimpleStringProperty kontonummerProperty()
+    {
+        return new SimpleStringProperty(this.kontonummer);
     }
  
     

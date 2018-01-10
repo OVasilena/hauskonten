@@ -7,15 +7,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane styleClass="startPane" 
+<BorderPane  
             prefHeight="640.0" 
             prefWidth="640.0"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hauskontenverwaltung.MenuController">
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
-       
-    <children>
+    
+    <top>   
+    
+        <MenuBar >
+
+     
+    <Menu text="Stammdaten" >
+        <MenuItem text="Eigentümer" onAction="#handleEigentuemerverwaltung"/>
+        <MenuItem text="Kostenkonten" onAction="#handleKostenkonten"/>
+    </Menu>
+    <Menu text="Buchhaltung">
+        <MenuItem text="Buchen" onAction="#handleBuchung"/>    
+    </Menu>
+
+</MenuBar> 
+    
+    </top> 
+     <center>  
+
+        <AnchorPane styleClass="startPane">
         <Label text="HKV 0.0.1"
                styleClass="startTitle"
                layoutX="25" layoutY="20"/>
@@ -25,6 +44,7 @@
         <Label text="Hersteller: O.Podlubnaja"
                styleClass="startText"
                layoutX="25" layoutY="80"/>
-    </children>
-    
-</AnchorPane>
+        </AnchorPane>
+
+     </center>
+</BorderPane>

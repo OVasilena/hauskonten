@@ -8,16 +8,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.*?>
 
-<AnchorPane styleClass="startPane"
-            prefHeight="640.0" 
-            prefWidth="640.0"
+<AnchorPane styleClass="buchPane"            
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="hauskontenverwaltung.BuchungController">
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
     <children>
-         <HBox layoutX="20" layoutY="25">
+         <HBox layoutX="20" layoutY="25" styleClass="hbox">
             <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
@@ -36,42 +34,40 @@
                        GridPane.columnIndex="0" 
                        GridPane.rowIndex="3"/>      
                         
-                <ComboBox GridPane.columnIndex="1" 
-                       GridPane.rowIndex="0">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                        
-                        </FXCollections>
-                    </items>                           
-                </ComboBox>
-                <DatePicker fx:id="dpDate"
-                        styleClass="dp" 
+                <TextField GridPane.columnIndex="1" 
+                       GridPane.rowIndex="0"
+                       text=""                       
+                       fx:id="tfKontonr"/>
+                    
+                <DatePicker fx:id="dpDate"                         
                         GridPane.columnIndex="1" 
                         GridPane.rowIndex="1"/>     
                 <TextField fx:id="tfBeschreibung"
-                       text=""                       
-                       styleClass="tf" 
+                       text=""                  
+                       
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="2"/>
                 <HBox GridPane.columnIndex="1" 
-                       GridPane.rowIndex="3">
+                       GridPane.rowIndex="3"
+                        styleClass ="hboxBuch">
                     <children>
                         <TextField fx:id="tfBetrag"/>
                         <fx:define>
                         <ToggleGroup fx:id="myToggleGroup"/>
                         </fx:define>
-                        <RadioButton text="Einzahlung" toggleGroup="$myToggleGroup"/>
-                        <RadioButton text="Ausgabe" toggleGroup="$myToggleGroup"/>                             
+                        <RadioButton text="Einzahlung" toggleGroup="$myToggleGroup" fx:id="rbtnE"/>
+                        <RadioButton text="Ausgabe" toggleGroup="$myToggleGroup" fx:id="rbtnA"/>                             
                             
                     </children>                           
                 </HBox>                          
-                </GridPane>
-            
+            </GridPane>
+            <VBox styleClass="vbox">
                 <Button fx:id="btnUebernehmen"
-                       text="Übernehmen"
-                       styleClass="btn" />
+                        text="Übernehmen"
+                        onAction="#handleUebernehmen"
+                        styleClass="btnBuchung" />
                 
-                        
+            </VBox>            
             
         </HBox>
             <HBox layoutX="20" layoutY="190">

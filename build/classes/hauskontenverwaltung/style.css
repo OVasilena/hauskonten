@@ -10,10 +10,12 @@
     
 }
 
-.eigPane{
-    -fx-background-color:lightblue;
-    
+.eigPane, .kostenPane, .buchPane {
+    -fx-background-color:lightblue;    
+    -fx-padding: 10px; 
 }
+
+
 .startTitle {
     -fx-text-fill: white;
      -fx-font-size: 1.6em;
@@ -26,14 +28,35 @@
 }
 
 .lbl {
-    -fx-pref-width: 150px;
+    -fx-pref-width: 120px;
     -fx-alignment: CENTER_RIGHT;
 }
-.tf {
+
+#dpDate, #tfKontonr, #tfBeschreibung {
+    -fx-pref-width: 200px;
+     
+}
+#dpDate {
+    -fx-show-week-numbers: true;
+}
+
+.tfKonto {
+    -fx-background-color: lightgray;
+}
+
+.tf, .tfKontonr, .tfKonto {
      -fx-pref-width: 200px;
 }
 .btn {
-     -fx-pref-width: 100px;
+     -fx-pref-width: 150px;
+}
+#tfBetrag {
+    -fx-pref-width: 100px;
+}
+.btnBuchung {
+     -fx-pref-width: 150px;
+     -fx-pref-height: 100px;
+     
 }
 #lblStatus {
     -fx-background-color: white;
@@ -44,6 +67,25 @@
     -fx-pref-width: 600px;
     -fx-pref-height: 350px;
 }
+#colNummer {
+    -fx-pref-width: 100px;
+    -fx-alignment: CENTER;
+}
+#colName {
+    -fx-pref-width: 210px;
+    -fx-alignment: CENTER_LEFT;
+    
+}
+#colWhgnummer {
+    -fx-pref-width: 170px;
+    -fx-alignment: CENTER;   
+}
+#colKontostand {
+    -fx-pref-width: 100px;
+    -fx-alignment: CENTER_RIGHT;   
+}
+
+
 #lblStand {
     
     -fx-pref-width: 600px;
@@ -54,5 +96,16 @@
     -fx-hgap: 10px;
     -fx-vgap: 10px;
     -fx-padding: 10px;
-    -fx-pref-width: 500px;
+}
+.vbox {
+    -fx-spacing: 15px;
+    -fx-alignment: CENTER;
+    
+}
+.hbox {
+    -fx-spacing: 50px;
+   
+}
+.hboxBuch {
+    -fx-spacing: 10px;
 }
