@@ -20,7 +20,7 @@ public class Eigentuemer implements Serializable
     
     private String wohnungsnummer;
     private String vorname, nachname;
-    private double kontostand;    
+    private double kontostand =0;    
     private String kontonummer;
     private final double saldo = 0;
     private static int id = 102;
@@ -32,6 +32,7 @@ public class Eigentuemer implements Serializable
     */
     public Eigentuemer() 
     { 
+             
         nummer = ++id;
         this.kontonummer = "EK" + Integer.toString(nummer);           
         this.kontostand = saldo;
@@ -48,15 +49,28 @@ public class Eigentuemer implements Serializable
                        String whgnummer) 
     {
         nummer = ++id;
+        
         this.vorname = vorname;
         this.nachname = nachname;
         this.wohnungsnummer = whgnummer;
-        this.kontonummer = "EK" + Integer.toString(nummer);           
+        this.kontonummer = "EK" + Integer.toString(nummer);  
+        //System.out.println("Nummer aus getID: " + nummer);
         this.kontostand = saldo;
         
     }
-
-
+    
+    public void setKonto(int nm)
+    {
+        this.id= nm;
+    }
+    
+    public int getID()
+    {
+        return nummer;
+    }
+    
+    
+    
     // --- Vorname ---
     /**
      * Methode setzt den Vornamen des Eigentümers
@@ -156,10 +170,10 @@ public class Eigentuemer implements Serializable
     public String toString()
     {
         return "Kontonummer: " + getKontonummer()
-                + "\nEigentümername: " + getNachname() + ", "
-                + getVorname() + "\nWohnungsnummer: "
-                + getWohnungsnummer() + "\nKontostand: " 
-                + getKontostand();
+                + ", Eigentümername: " + getNachname() + ", "
+                + getVorname() + ", Wohnungsnummer: "
+                + getWohnungsnummer() + ", Kontostand: " 
+                + getKontostand() + " €";
     }
     
     // Methoden liefern die Eigenschaften

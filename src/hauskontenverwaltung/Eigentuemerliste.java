@@ -18,6 +18,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 /**
  * Klasse beschreibt eine Liste für Eigentümern, welche überwacht
@@ -31,32 +32,20 @@ public class Eigentuemerliste {
     private double gstand = 0;
     // ÜberwachbareListe von Typ Eigentuemer    
     private ObservableList<Eigentuemer> eigentuemerListe;
-            
+    private boolean test = false;       
+    
     
     public Eigentuemerliste() {
         // erzeugen des Listenobjektes
         // ArrayList -> indexorientierte überwachbare Liste
-        this.eigentuemerListe = FXCollections.observableArrayList();
-        
-        //testdaten();
-        //for(Eigentuemer eigen:eigentuemerListe) 
-        //    System.out.println(eigen);
-        /*try {
-            speichernListe();
-        } catch (IOException e) {
-            System.out.println("Fehlermeldung");
+        this.eigentuemerListe = FXCollections.observableArrayList();  
+        // testdaten nur beim ersten Datei erstellung speichern
+        if(!test)
+        {
+        testdaten();
+        test = true;
         }
-        */
-        //System.out.println("********ausgeben Datei*******");
-        /*try {
-            auslesenDatei();
-
-        } catch (IOException e) {
-            System.out.println("Ausgabe nicht möglich\n " + e.getMessage());
-        } catch (ClassNotFoundException ce) {
-            System.out.println("Klass nicht gefunden" + ce.getMessage());
-        }*/
-
+        
     }
 
     /**
@@ -106,13 +95,13 @@ public class Eigentuemerliste {
         
         for(Eigentuemer eg: eigentuemerListe)
         {
-           gstand =+eg.getKontostand();
+           gstand += eg.getKontostand();
         }
         return gstand;   
     }
     
     /**
-     * Methode liefert eine überwachbare Liste von Typ Person
+     * Methode liefert eine überwachbare Liste von Typ Eigentuemer
      *
      * @return liste ObservableList
      */
@@ -129,16 +118,15 @@ public class Eigentuemerliste {
     }
 
     // Serialisierung eines Objektes
-    public void speichernListe() throws IOException {
-        testdaten();
-        ObjectOutputStream aus = new ObjectOutputStream(
-                new FileOutputStream("test4.stm"));
+    public void speichernListe(File file) throws IOException {
+        //testdaten();
+        ObjectOutputStream aus = new ObjectOutputStream(new FileOutputStream(file));
         // Konvertieren ObservableList to ArrayList
         ArrayList<Eigentuemer> eigListe = new ArrayList<Eigentuemer>(eigentuemerListe);
-        System.out.println("**** gespeicherte Objekte als ArrayList ****");
-        for(Eigentuemer eg : eigListe) System.out.println(eg);
+        //System.out.println("**** gespeicherte Objekte als ArrayList ****");
+        //for(Eigentuemer eg : eigListe) System.out.println(eg);
         aus.writeObject(eigListe);
-        System.out.println("************* ENDE SpeichernListe() *****************");
+        //System.out.println("************* ENDE SpeichernListe() *****************");
         aus.close();
     }
 
@@ -148,10 +136,10 @@ public class Eigentuemerliste {
         ArrayList<Eigentuemer> eig_neu = (ArrayList<Eigentuemer>) ein.readObject();
         //  Konvertieren ArrayList to ObservableList
         eigentuemerListe = FXCollections.observableArrayList(eig_neu);
-        System.out.println("***** auslesenDatei als ObservableListe ******");
-        for (Eigentuemer eg : eigentuemerListe) {
-            System.out.println(eg);
-        }
+        //System.out.println("***** auslesenDatei als ObservableListe ******");
+        //for (Eigentuemer eg : eigentuemerListe) {
+        //    System.out.println(eg);
+        //}
         
         
         ein.close();
@@ -163,9 +151,26 @@ public class Eigentuemerliste {
      * @param index int
      * @return Person
      */
-    public Eigentuemer getPerson(int index)
+    public Eigentuemer getEigentuemer(int index)
     {
         return eigentuemerListe.get(index);
     }
+    
+    public boolean removeEigentuemer(Eigentuemer e)
+    {
+        return this.eigentuemerListe.remove(e);
+    }
+    
+    /**
+     * Methode ersetzt einen Eigentümer an der Index-Stelle
+     * @param index int
+     * @param e Eigentuemer
+     * @return Eigentuemer
+     */
+    public Eigentuemer setEigentuemer(int index, Eigentuemer e)
+    {
+        return this.eigentuemerListe.set(index, e);
+    }
+
 
 }

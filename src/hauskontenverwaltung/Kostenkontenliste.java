@@ -1,5 +1,6 @@
 package hauskontenverwaltung;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Klasse beschreibt eine Liste für Kostenkonten, welche
@@ -16,41 +19,23 @@ import java.util.Scanner;
  * @author opodlubnaja
  */
 public class Kostenkontenliste {
-
+   
+    private double gstand = 0;
     // Liste von Typ Kostenkonto
-    private ArrayList<Kostenkonto> kostenkontoListe;
+    // ÜberwachbareListe von Typ Kostenkonto   
+    private ObservableList<Kostenkonto> kostenkontoListe;
+    private boolean test = false;       
 
     public Kostenkontenliste() {
         // erzeugen des Listenobjektes
         // ArrayList -> indexorientierte überwachbare Liste
-        this.kostenkontoListe = new ArrayList();
+        this.kostenkontoListe = FXCollections.observableArrayList();  
+        if(!test)
+        {
         testdaten();
-        //for (Kostenkonto kkonten : kostenkontoListe) {
-        //    System.out.println(kkonten);
-        //}
-        try
-        {
-            speichernListe();
-        }
-        catch (IOException e)
-        {
-            System.out.println("Fehlermeldung" +e.getMessage());
-        }
-        
-        System.out.println("********ausgeben Datei*******");
-        try
-        {
-            auslesenDatei();
-            
-        }
-        catch (IOException e)
-        {
-            System.out.println("Ausgabe nicht möglich\n " +e.getMessage());
-        }
-        catch (ClassNotFoundException ce)
-        {
-            System.out.println("Klasse nicht gefunden" + ce.getMessage());
-        }
+        test = true;
+        }    
+       
     }
 
     /**
@@ -66,14 +51,6 @@ public class Kostenkontenliste {
         kostenkontoListe.add(new Kostenkonto("K600", "Diverse Reparaturkosten"));
         kostenkontoListe.add(new Kostenkonto("K209", "Schornsteinfeger"));
         
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Konto: ");
-        String kontonr = scan.next();
-        System.out.println("Bezeichnung: ");
-        String bezeichnung = scan.next();
-        
-        addKonto(kontonr, bezeichnung);
-        scan.close();
 
     }
     // Zufügen eine Kostenstelle
@@ -82,24 +59,91 @@ public class Kostenkontenliste {
                                         (kontonr, bezeichnung));
     }
     
+    public void addKonto(Kostenkonto k)
+    {
+        kostenkontoListe.add(k);
+    }
+    
+    /**
+     * Methode berechnen Gesamtkontostand 
+     * @return 
+     */
+    public double getGesamtStand()
+    {
+        
+        for(Kostenkonto kk: kostenkontoListe)
+        {
+           gstand =+kk.getKontostand();
+        }
+        return gstand;   
+    }
+    
 
     // Serialisierung eines Objektes
-    public void speichernListe() throws IOException {
-        ObjectOutputStream aus = new ObjectOutputStream(
-                new FileOutputStream("test2.stm"));
-        aus.writeObject(kostenkontoListe);
+    public void speichernListe(File file) throws IOException {
+        
+        ObjectOutputStream aus = new ObjectOutputStream(new FileOutputStream(file));
+        // Konvertieren ObservableList to ArrayList
+        ArrayList<Kostenkonto> kListe = new ArrayList<Kostenkonto>(kostenkontoListe);
+        
+        aus.writeObject(kListe);
         aus.close();
     }
 
     // Deserialisierung eines Objektes
-    public void auslesenDatei() throws IOException, ClassNotFoundException {
-        ObjectInputStream ein = new ObjectInputStream(new FileInputStream("test2.stm"));
+    public void auslesenDatei(File file) throws IOException, ClassNotFoundException {
+        ObjectInputStream ein = new ObjectInputStream(new FileInputStream(file));
         ArrayList<Kostenkonto> kosten_neu = (ArrayList<Kostenkonto>) ein.readObject();
-
-        for (Kostenkonto kkonto : kosten_neu) {
-            System.out.println(kkonto);
-        }
+        kostenkontoListe = FXCollections.observableArrayList(kosten_neu);
+        //for (Kostenkonto kkonto : kosten_neu) {
+        //    System.out.println(kkonto);
+        //}
         ein.close();
 
     }
+    
+    /**
+     * Methode liefert eine überwachbare Liste von Typ Kostenkonto
+     *
+     * @return liste ObservableList
+     */
+    public ObservableList<Kostenkonto> getListe() {
+        return kostenkontoListe;
+    }
+
+    public int sizeListe() {
+        return kostenkontoListe.size();
+    }
+
+    public boolean isEmpty() {
+        return kostenkontoListe.isEmpty();
+    }
+    
+     
+    /**
+     * Methode gibt einen Eigentümer an der Index-Stelle zurück
+     * @param index int
+     * @return Person
+     */
+    public Kostenkonto getKostenkonto(int index)
+    {
+        return kostenkontoListe.get(index);
+    }
+    
+    public boolean removeKostenkonto(Kostenkonto k)
+    {
+        return this.kostenkontoListe.remove(k);
+    }
+    
+    /**
+     * Methode ersetzt einen Eigentümer an der Index-Stelle
+     * @param index int
+     * @param e Eigentuemer
+     * @return Eigentuemer
+     */
+    public Kostenkonto setKostenkonto(int index, Kostenkonto k)
+    {
+        return this.kostenkontoListe.set(index, k);
+    }
+    
 }

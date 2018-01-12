@@ -24,27 +24,22 @@ import javafx.stage.Stage;
  *
  * @author opodlubnaja
  */
-public class MenuController {    
+public class MenuController implements Konstanten{        
     
-    private String dateiName;
-    private File datei;
-    private File dateiPath;
-    private Eigentuemerliste liste;
+    
     AnchorPane centerPane;
     //private Hauskontenverwaltung hkv;
     private EigentuemerController egcontroller;
     private BuchungController bcontroller;
+    private KostenkontenController kkcontroller;
     private Hauskontenverwaltung hkverwaltung;
     BorderPane border;
     boolean isliste = false;
     @FXML
-    private MenuBar menuBar;  
+    //private MenuBar menuBar;  
     
     public void initialize()
     {
-      liste = new Eigentuemerliste();
-      
-        
     }
     // Referenz auf PersonenVerwaltung
     
@@ -56,36 +51,47 @@ public class MenuController {
     {
         this.hkverwaltung = hv;
     }
-    
-    
+    private Eigentuemerliste eliste;
+    public void setEigentListe(Eigentuemerliste el)
+    {
+        this.eliste = el;
+    }
+    private Buchungsliste buchungsliste;
+    public void setBuchungsListe(Buchungsliste bl)
+    {
+        this.buchungsliste = bl;
+    }
+    private Kostenkontenliste kostenliste;
+    public void setKostenliste(Kostenkontenliste kl)
+    {
+        this.kostenliste = kl;
+    }
 
     /**
      * Methode 
      * @param actionEvent
      * @throws IOException 
      */
-    public void handleEigentuemerverwaltung(ActionEvent actionEvent) throws Exception   {
-        
-        
+    public void handleEigentuemerverwaltung(ActionEvent actionEvent) throws Exception   {  
         
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Eigentuemer.fxml"));
-        
-        centerPane = loader.load();
-        
-        border = hkverwaltung.getRoot();
-        //border.getCenter().setDisable(false);
+        loader.setLocation(getClass().getResource("Eigentuemer.fxml"));        
+        centerPane = loader.load();        
+        border = hkverwaltung.getRoot();        
         border.setCenter(centerPane);
         hkverwaltung.getFenster().setTitle("Eigentümerverwaltung");
         
-        if(!isliste) getListe();
-        
         // Die liste an Controller übergeben
         egcontroller = loader.getController();
-        System.out.println("Controller setzen Eigentümerliste");
-        //hkverwaltung.getEC().setEigentListe(liste);
-        if(liste.isEmpty()) egcontroller.setZustand(0); 
-        else egcontroller.setEigentListe(liste);
+        
+        if(eliste.isEmpty()) 
+        {
+            egcontroller.setZustand(LEER);
+            
+        } 
+        // Liste aktualisieren zB nach der Buchung
+        
+        egcontroller.setEigentListe(eliste);
         
     }
 
@@ -93,13 +99,21 @@ public class MenuController {
         System.out.println("Kostenkonten anzeigen");
        // Stage stage = (Stage) menuBar.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Kostenkonten.fxml"));
-        //URL paneKosten = getClass().getResource("Kostenkonten.fxml");
-        centerPane = loader.load();
-      
+        loader.setLocation(getClass().getResource("Kostenkonten.fxml"));        
+        centerPane = loader.load();      
         border = hkverwaltung.getRoot();
         border.setCenter(centerPane);
         hkverwaltung.getFenster().setTitle("Kostenkontenverwaltung");
+        
+        kkcontroller = loader.getController();
+        if(kostenliste.isEmpty()) 
+        {
+            kkcontroller.setZustand(LEER);            
+        } 
+        
+        kkcontroller.setKostenliste(kostenliste);
+        
+        
         
     }
     
@@ -111,63 +125,18 @@ public class MenuController {
         
         //URL paneBuchhaltung = getClass().getResource("Buchung.fxml");
         centerPane = loader.load();
-        System.out.println("Eigenschaften loader: " +loader.toString());
+        //System.out.println("Eigenschaften loader: " +loader.toString());
         border = hkverwaltung.getRoot();
         border.setCenter(centerPane);
         bcontroller = loader.getController();
-        getListe();
-        bcontroller.setEigentListe(liste);
+        
+         
+        bcontroller.setBListe(buchungsliste);
+        bcontroller.setEigentListe(eliste);
+        bcontroller.setKListe(kostenliste);
         hkverwaltung.getFenster().setTitle("Buchungsvorgang");
     }
-    
-    public void getListe()
-    {
-        
-        File file = getDatei(true);       
-        try
-        { // wenn eine Datei gewählt wurde
-            if(file != null)                      
-                // Datei einlesen           
-                liste.auslesenDatei(file);
-        }
-        catch(IOException ioe)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Einlesefehler");
-            alert.setHeaderText(ioe.getMessage());
-            alert.showAndWait();
-        }
-        catch (ClassNotFoundException cnfe)
-        {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Datei nicht gefunden");
-            alert.setHeaderText(cnfe.getMessage());
-            alert.showAndWait();
-        }
-        isliste = true;
-    }
-    
- /**
-     * Methode gibt File zurück.
-     * Fenster ist als Modale-Dialog aufgebaut
-     * true - Datei öffen
-     * false - Datei speichern
-     * @param oeffnen boolean
-     * @return Datei
-     */      
-    
-    public File getDatei(boolean oeffnen)
-    {
-        dateiPath = new File(System.getProperty("user.dir"));
-        FileChooser fc = new FileChooser(); 
-        fc.setInitialDirectory(dateiPath);        
-
-        // Dialog anzeigen
-        if(oeffnen) datei = fc.showOpenDialog(hkverwaltung.getFenster());       
-        else datei = fc.showSaveDialog(hkverwaltung.getFenster());
-       
-        return datei;
-    }
+  
 
 }
 

@@ -24,14 +24,14 @@ import javafx.beans.property.SimpleStringProperty;
  * <li>Kontonummer</li></ul>  
  * @author opodlubnaja
  */
-public class Buchung implements Serializable {
+public class Buchung implements Serializable, Konstanten{
     private LocalDate buchDatum;
     private Double betrag;
     private boolean vorgangsart;
     private String beschreibung;
     private String kontonummer;
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");     
+    //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    //java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");     
    public Buchung()
    {
    }
@@ -143,8 +143,8 @@ public class Buchung implements Serializable {
     public String toString()
     {
         return "Datum\t\tBetrag\tE/A\tBeschreibung\tKontonummer\n"
-                + this.getBuchungstag().format(dtf) + "\t" 
-                + df.format(this.getBetrag())+ "\t" 
+                + this.getBuchungstag().format(DTF) + "\t" 
+                + DF.format(this.getBetrag())+ "\t" 
                 + this.getVorgang() + "\t" 
                 + this.getBeschreibung() + "\t" 
                 + this.getKontonummer();

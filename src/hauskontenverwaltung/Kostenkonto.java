@@ -1,6 +1,8 @@
 package hauskontenverwaltung;
 
 import java.io.Serializable;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Klasse beschreibt einen Kostenkonto-Objekt
@@ -22,6 +24,7 @@ public class Kostenkonto implements Serializable {
     */
     public Kostenkonto()
     { 
+        this.kontostand = saldo;
     }
     /**
      * überladener Konstruktor
@@ -51,7 +54,12 @@ public class Kostenkonto implements Serializable {
     {
         return this.kontonummer;
     }
- 
+    
+     public SimpleStringProperty kontonummerProperty()
+    {
+        return new SimpleStringProperty(this.kontonummer);
+    }
+     
     // --- Bezeichnung ---
     /**
      * Methode setztt die Bezeichnung des Kostenkonto
@@ -68,6 +76,11 @@ public class Kostenkonto implements Serializable {
     public String getBezeichnung()
     {
         return this.bezeichnung;
+    }
+    
+    public SimpleStringProperty bezeichnungProperty()
+    {
+        return new SimpleStringProperty(this.bezeichnung);
     }
  
     // --- Kontostand ---
@@ -86,6 +99,11 @@ public class Kostenkonto implements Serializable {
     public double getKontostand()
     {
         return this.kontostand;
+    }
+    
+    public SimpleDoubleProperty kontostandProperty()
+    {
+        return new SimpleDoubleProperty(this.kontostand);
     }
     
     @Override

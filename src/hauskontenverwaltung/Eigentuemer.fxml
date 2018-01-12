@@ -61,9 +61,11 @@
                        styleClass="btn" />
                 <Button fx:id="btnAendern"
                        text="Ändern"
+                       onAction="#handleAendern"
                        styleClass="btn"/>
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
+                       onAction="#handleLoeschen"
                        styleClass="btn">
                     <tooltip>
                         <Tooltip text="Stammdaten löschen" styleClass="tooltip"/>

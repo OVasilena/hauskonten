@@ -42,15 +42,18 @@
             <VBox  layoutX="500" layoutY="25">
                 <Button fx:id="btnNeu"
                        text="Neu"
+                       onAction="#handleNeu"
                        styleClass="btn" />
                 <Button fx:id="btnAendern"
                        text="Ändren"
+                       onAction="#handleAendern"
                        styleClass="btn"/>
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
+                       onAction="#handleLoeschen"
                        styleClass="btn">
                     <tooltip>
-                        <Tooltip text="Stammdaten löschen" styleClass="tooltip"/>
+                        <Tooltip text="" styleClass="tooltip"/>
                     </tooltip>
                 </Button>
             </VBox>               
