@@ -284,7 +284,6 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
 
     /**
      * Methode setzt die Änderung
-     *
      * @param bool boolean
      */
     public void setAenderung(boolean bool) {
