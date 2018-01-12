@@ -203,7 +203,7 @@ public class Eigentuemer implements Serializable
         return new SimpleDoubleProperty(this.kontostand);
     }
     
-        public boolean isKonto(String zahl)
+    public boolean isKonto(String zahl)
     {
         return this.getKontonummer().equals(zahl);
     }

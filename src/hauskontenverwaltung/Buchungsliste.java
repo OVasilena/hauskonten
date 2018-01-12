@@ -31,7 +31,7 @@ public class Buchungsliste {
         //ArrayList -> indexorientierte überwachbare Liste
         this.buchungsListe = FXCollections.observableArrayList();
         
-        testdaten();
+        //testdaten();
         //for(Buchung bhg: buchungsListe) 
         //    System.out.println(bhg);
     }

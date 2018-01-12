@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  */
 public class Kostenkontenliste {
    
-    private double gstand = 0;
+   
     // Liste von Typ Kostenkonto
     // ÜberwachbareListe von Typ Kostenkonto   
     private ObservableList<Kostenkonto> kostenkontoListe;
@@ -70,11 +70,13 @@ public class Kostenkontenliste {
      */
     public double getGesamtStand()
     {
-        
+        double gstand = 0;
         for(Kostenkonto kk: kostenkontoListe)
         {
-           gstand =+kk.getKontostand();
+           gstand += kk.getKontostand();
+           
         }
+        
         return gstand;   
     }
     

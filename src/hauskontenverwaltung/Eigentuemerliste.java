@@ -29,7 +29,7 @@ import javafx.scene.control.Alert;
  */
 public class Eigentuemerliste {
 
-    private double gstand = 0;
+   
     // ÜberwachbareListe von Typ Eigentuemer    
     private ObservableList<Eigentuemer> eigentuemerListe;
     private boolean test = false;       
@@ -92,11 +92,13 @@ public class Eigentuemerliste {
      */
     public double getGesamtStand()
     {
-        
+        double gstand = 0;
         for(Eigentuemer eg: eigentuemerListe)
         {
-           gstand += eg.getKontostand();
+           gstand += eg.getKontostand();            
+            
         }
+        
         return gstand;   
     }
     

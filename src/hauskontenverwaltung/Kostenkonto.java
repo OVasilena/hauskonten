@@ -101,6 +101,28 @@ public class Kostenkonto implements Serializable {
         return this.kontostand;
     }
     
+    // --- Kontostand ---
+    /**
+     * Methode setzt den Kontostand des Eigentümers
+     * @param buchung double
+     */
+    public void setEinzahlen(double buchung)
+    {
+        this.kontostand +=buchung;
+       
+        
+    }
+     /**
+     * Methode setzt den Kontostand des Eigentümers
+     * @param buchung double
+     */
+    public void setAuszahlen(double buchung)
+    {
+        this.kontostand -=buchung;
+        
+        
+    }
+    
     public SimpleDoubleProperty kontostandProperty()
     {
         return new SimpleDoubleProperty(this.kontostand);
@@ -114,6 +136,10 @@ public class Kostenkonto implements Serializable {
                 + "\nKontostand: " + df.format(this.getKontostand()) 
                 + "\n";
     }
-
+    
+    public boolean isKonto(String zahl)
+    {
+        return this.getKontonummer().equals(zahl);
+    }
     
 }

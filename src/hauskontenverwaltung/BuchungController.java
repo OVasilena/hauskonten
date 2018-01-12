@@ -64,17 +64,17 @@ public class BuchungController {
     {
         this.bliste = bl;
         lblStatus.setText("Bereit für eine neue Buchung");
+        tblAnzeige.setItems(bliste.getListe());
     }
     
     public void setKListe(Kostenkontenliste kkl)
     {
         this.kkliste = kkl;
+        
     }
 
     public void initialize() {
         
-
-        //kkliste = new Kostenkontenliste();
         colDatum.setCellValueFactory(cellData
                 -> cellData.getValue().buchungProperty());
 
@@ -88,12 +88,7 @@ public class BuchungController {
                 -> cellData.getValue().betragProperty().asObject());
         colKontonummer.setCellValueFactory(cellData
                 -> cellData.getValue().kontonummerProperty());
-        // Klickereignis: Klick auf Eigentümer in Tabelle
-        // -> Anzeige dieser Daten
         
-        tblAnzeige.getSelectionModel().selectedItemProperty()
-                  .addListener((observable, oldValue, newValue)
-                       -> anzeigeBuchungInfo(newValue));
     }
     
      public void anzeigeBuchungInfo(Buchung bg)
@@ -128,9 +123,16 @@ public class BuchungController {
                 {
                     if(buchung.getVorgang()) eg.setEinzahlen(buchung.getBetrag());
                     else eg.setAuszahlen(buchung.getBetrag());
+                }                
+            }
+            for(Kostenkonto kk: kkliste.getListe())
+            {
+                if(buchung.getKontonummer().equals(kk.getKontonummer()))
+                {
+                    if(buchung.getVorgang()) kk.setEinzahlen(buchung.getBetrag());
+                    else kk.setAuszahlen(buchung.getBetrag());
                 }
             }
-            
             
             
             tblAnzeige.getSelectionModel().select(buchung);
@@ -164,22 +166,38 @@ public class BuchungController {
      */
     private Buchung getEingabeBuchung() throws Exception {
         Buchung bhg = new Buchung();
-        Eigentuemer egm = new Eigentuemer();
+        //Eigentuemer egm = new Eigentuemer();
         // **** Eingabe Kontonummer ****
+        String tempKtn ="";
         String strNummer = tfKontonr.getText().trim();
-        for (Eigentuemer eg : egliste.getListe()) {
+        for (Eigentuemer liste : egliste.getListe()) {
 
-            if (eg.isKonto(strNummer)) {
-                System.out.println("Konto gefunden: " + eg.getKontonummer());
-                egm = eg;
+            if (liste.isKonto(strNummer)) {
+                System.out.println("Konto gefunden: " + liste.getKontonummer());
+                //egm = eg;
+                tempKtn = liste.getKontonummer();
                 
-                break;
-            } else {                
-                lblStatus.setText("Kontonummer exisitiert nicht oder falsch geschrieben");
-                
-            }
+            } 
         }
-        
+        for(Kostenkonto liste : kkliste.getListe())
+        {
+            if (liste.isKonto(strNummer)) {
+                System.out.println("Konto gefunden: " + liste.getKontonummer());
+                //egm = eg;
+                tempKtn = liste.getKontonummer();
+                
+            } 
+        }
+        if(strNummer.isEmpty())
+        {
+            tfKontonr.requestFocus();
+            throw new Exception("Bitte Kontonummer eintragen");
+        }
+        if(!strNummer.equals(tempKtn))
+        {
+            tfKontonr.requestFocus();
+            throw new Exception(strNummer + " - Kontonummer exisistiert nicht!");
+        }
         bhg.setKontonummer(strNummer);
         // **** Eingabe Buchungsdatum ****
         LocalDate buchdatum = dpDate.getValue();

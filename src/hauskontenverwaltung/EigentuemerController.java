@@ -57,12 +57,13 @@ public class EigentuemerController implements Konstanten {
         tblAnzeige.setItems(eigentListe.getListe());
         //System.out.println("getListe " + eigentListe.getListe().size());
         
-        lblStatus.setText(eigentListe.sizeListe() + " Eigentümer in der Liste");
+        
         //System.out.println("Gesatmkontostand: " + eigentListe.getGesamtStand()+ " EURO");
         //for(Eigentuemer el: eigentListe.getListe()) System.out.println("Kontostand:" + el.getKontostand());
-        lblStand.setText("Gesatmkontostand: " + Double.toString(eigentListe.getGesamtStand())+ " EURO");
+       
         if(!eigentListe.isEmpty())
         {
+            lblStatus.setText(eigentListe.sizeListe() + " Eigentümer in der Liste");
             anzeigeEigentuemerInfo(eigentListe.getEigentuemer(eigentListe.sizeListe()-1));
             Eigentuemer eigent = eigentListe.getEigentuemer(eigentListe.sizeListe()-1);
             int index = eigentListe.sizeListe()-1;
@@ -72,6 +73,7 @@ public class EigentuemerController implements Konstanten {
             int nummer = Integer.valueOf(konto.substring(2));
             
             eigent.setKonto(nummer);
+             lblStand.setText("Gesatmkontostand: " + Double.toString(eigentListe.getGesamtStand())+ " EURO");
         }
         else lblStatus.setText("Die Liste ist leer");
     }

@@ -49,16 +49,16 @@ public class KostenkontenController implements Konstanten{
     {
         this.kostenListe = kl;
         tblAnzeige.setItems(kostenListe.getListe());
-        System.out.println("getKostenListe " + kostenListe.getListe().size());
-        lblStatus.setText(kostenListe.sizeListe() + " Eigentümer in der Liste");
-        lblStand.setText("Gesatmkontostand: " + Double.toString(kostenListe.getGesamtStand())+ " EURO");
+        //System.out.println("getKostenListe " + kostenListe.getListe().size());
+        lblStatus.setText(kostenListe.sizeListe() + " Kostenkonten in der Liste");
+        
         
          if(!kostenListe.isEmpty())
         {
             anzeigeKontoInfo(kostenListe.getKostenkonto(kostenListe.sizeListe()-1));            
             int index = kostenListe.sizeListe()-1;
             tblAnzeige.getSelectionModel().select(index);                 
-            
+            lblStand.setText("Gesatmkontostand: " + Double.toString(kostenListe.getGesamtStand())+ " EURO");
             
         }
         else lblStatus.setText("Die Liste ist leer");
