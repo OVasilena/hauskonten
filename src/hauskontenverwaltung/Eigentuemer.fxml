@@ -58,15 +58,15 @@
                 <Button fx:id="btnNeu"
                        text="Neu"
                        onAction="#handleNeu"
-                       styleClass="btn" />
+                       styleClass="btnNeu" />
                 <Button fx:id="btnAendern"
                        text="Ändern"
                        onAction="#handleAendern"
-                       styleClass="btn"/>
+                       styleClass="btnAendern"/>
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
                        onAction="#handleLoeschen"
-                       styleClass="btn">
+                       styleClass="btnLoeschen">
                     <tooltip>
                         <Tooltip text="Stammdaten löschen" styleClass="tooltip"/>
                     </tooltip>
