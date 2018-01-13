@@ -1,9 +1,10 @@
 /test/
-/.idea
-/build
-/nbproject
-/storki
-/stroki2
-/test
+/.idea/
+/build/
+/nbproject/
+/storki/
+/stroki2/
+
 test2.stm
 test4.stm
+/dist/

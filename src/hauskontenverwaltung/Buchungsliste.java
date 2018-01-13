@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hauskontenverwaltung;
 
 import java.io.File;
@@ -53,14 +48,11 @@ public class Buchungsliste {
     
        // Serialisierung eines Objektes
     public void speichernListe(File file) throws IOException {
-        //testdaten();
+        
         ObjectOutputStream aus = new ObjectOutputStream(new FileOutputStream(file));
         // Konvertieren ObservableList to ArrayList
-        ArrayList<Buchung> bListe = new ArrayList<Buchung>(buchungsListe);
-        System.out.println("**** gespeicherte Objekte als ArrayList ****");
-        for(Buchung bg : bListe) System.out.println(bg);
-        aus.writeObject(bListe);
-        System.out.println("************* ENDE SpeichernListe() *****************");
+        ArrayList<Buchung> bListe = new ArrayList<Buchung>(buchungsListe);        
+        aus.writeObject(bListe);        
         aus.close();
     }
 
@@ -72,9 +64,7 @@ public class Buchungsliste {
         buchungsListe = FXCollections.observableArrayList(bhg_neu);        
         ein.close();
 
-    }  
-    
-          
+    }     
     
     public boolean addBuchung(Buchung b)
     {

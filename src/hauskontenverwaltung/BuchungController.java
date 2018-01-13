@@ -238,8 +238,6 @@ public class BuchungController implements Konstanten{
         {
             bhg.setVorgang(false);        
         }
-        
-        //System.out.println(bhg);
         return bhg;
     }
     

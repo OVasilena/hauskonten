@@ -26,6 +26,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     private Buchungsliste buchungsliste;
     private File dateiPath;
     private MenuController mcontroller;
+    private StartMenuController smcontroller;
     private FXMLLoader loader;
     private File datei;
     private File gefundenEDatei;
@@ -65,7 +66,8 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     public void start(Stage primaryStage) throws Exception {
         fenster = primaryStage;
         loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("StartPane.fxml"));
+        //loader.setLocation(getClass().getResource("StartPane.fxml"));
+        loader.setLocation(getClass().getResource("StartMenu.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
 
@@ -73,9 +75,11 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
         fenster.setScene(scene);
         fenster.setTitle("Hauskontenverwaltung");
 
-        this.mcontroller = loader.getController();
-        mcontroller.setVerwaltung(this);
-
+        //this.mcontroller = loader.getController();
+        //mcontroller.setVerwaltung(this);
+        this.smcontroller = loader.getController();
+        smcontroller.setVerwaltung(this);
+/*
         File ordner = this.getDatei();
         datei = ordner.getAbsoluteFile();
 
@@ -91,7 +95,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
         gefundenBDatei = this.searchFile(datei, BDATEI);
         buchungsliste = ladenBDatei(gefundenBDatei);
         mcontroller.setBuchungsListe(buchungsliste);
-
+*/
         fenster.show();
     }
 
@@ -134,6 +138,10 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             System.exit(0);
         }
 
+    }
+    public void setMController(MenuController mc)
+    {
+        this.mcontroller = mc;
     }
 
     /**
@@ -290,6 +298,27 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
      */
     public boolean getAenderung() {
         return aenderung;
+    }
+    
+    public void datenLaden()
+    {
+        
+        File ordner = this.getDatei();
+        datei = ordner.getAbsoluteFile();
+
+        // ***** Eigentümerliste ****
+        gefundenEDatei = this.searchFile(datei, EDATEI);        
+        eigliste = ladenEDatei(gefundenEDatei);
+        mcontroller.setEigentListe(eigliste);
+        // ***** Kostenkontenliste *****
+        gefundenKDatei = this.searchFile(datei, KDATEI);
+        kkliste = ladenKDatei(gefundenKDatei);
+        mcontroller.setKostenliste(kkliste);
+        // ***** Buchungsliste *****
+        gefundenBDatei = this.searchFile(datei, BDATEI);
+        buchungsliste = ladenBDatei(gefundenBDatei);
+        mcontroller.setBuchungsListe(buchungsliste);
+
     }
 
 }
