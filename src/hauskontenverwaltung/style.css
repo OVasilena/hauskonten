@@ -47,17 +47,12 @@
 .tf, .tfKontonr, .tfKonto {
      -fx-pref-width: 200px;
 }
-.btn {
-     -fx-pref-width: 150px;
-}
+
 #tfBetrag {
     -fx-pref-width: 100px;
 }
-.btnBuchung {
-     -fx-pref-width: 150px;
-     -fx-pref-height: 100px;
-     
-}
+
+
 #lblStatus {
     -fx-background-color: white;
     -fx-pref-width: 600px;
@@ -108,4 +103,40 @@
 }
 .hboxBuch {
     -fx-spacing: 10px;
+}
+
+
+/*Buttons*/
+
+.button{
+    -fx-pref-width: 150px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-text-fill: white;
+
+}
+
+.btnBuchung {
+    -fx-pref-height: 100px;
+}
+
+.btnNeu, .btnAendern, .btnLoeschen{
+    -fx-pref-height: 30px;
+    -fx-background-color:
+            linear-gradient(#1e9cb5, #7eb1b0);
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-padding: 5 30 5 30;
+    -fx-background-radius: 20;
+
+}
+
+.btnNeu{
+}
+.btnAendern{
+
+}
+.btnLoeschen{
 }
