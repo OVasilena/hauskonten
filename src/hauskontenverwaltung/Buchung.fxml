@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
 <?import java.net.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.collections.*?>
 
 <AnchorPane styleClass="buchPane"            
             xmlns:fx="http://javafx.com/fxml/1"
@@ -36,34 +32,28 @@
                         
                 <TextField GridPane.columnIndex="1" 
                        GridPane.rowIndex="0"
-                       text=""                       
                        fx:id="tfKontonr"/>
                     
                 <DatePicker fx:id="dpDate"                         
                         GridPane.columnIndex="1" 
                         GridPane.rowIndex="1"/>     
                 <TextField fx:id="tfBeschreibung"
-                       text=""                  
-                       
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="2"/>
                 <HBox GridPane.columnIndex="1" 
                        GridPane.rowIndex="3"
                         styleClass ="hboxBuch">
-                    <children>
+
                         <TextField fx:id="tfBetrag"/>
                         <fx:define>
                         <ToggleGroup fx:id="myToggleGroup"/>
                         </fx:define>
                         <RadioButton text="Einzahlung" toggleGroup="$myToggleGroup" fx:id="rbtnE"/>
-                        <RadioButton text="Ausgabe" toggleGroup="$myToggleGroup" fx:id="rbtnA"/>                             
-                            
-                    </children>                           
-                </HBox>                          
+                        <RadioButton text="Ausgabe" toggleGroup="$myToggleGroup" fx:id="rbtnA"/>
+                </HBox>
             </GridPane>
             <VBox styleClass="vbox">
-                <Button fx:id="btnUebernehmen"
-                        text="Übernehmen"
+                <Button text="Übernehmen"
                         onAction="#handleUebernehmen"
                         styleClass="btnBuchung" />
                 
