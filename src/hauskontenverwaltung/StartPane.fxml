@@ -8,43 +8,36 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane  
-            prefHeight="640.0" 
-            prefWidth="640.0"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hauskontenverwaltung.MenuController">
+    prefHeight="640.0" 
+    prefWidth="640.0"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="hauskontenverwaltung.MenuController">
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
     
-    <top>   
-    
-        <MenuBar >
-
-     
-    <Menu text="Stammdaten" >
-        <MenuItem text="Eigentümer" onAction="#handleEigentuemerverwaltung"/>
-        <MenuItem text="Kostenkonten" onAction="#handleKostenkonten"/>
-    </Menu>
-    <Menu text="Buchhaltung">
-        <MenuItem text="Buchen" onAction="#handleBuchung"/>    
-    </Menu>
-
-</MenuBar> 
-    
+    <top>       
+        <MenuBar >     
+            <Menu text="Stammdaten" >
+                <MenuItem text="Eigentümer" onAction="#handleEigentuemerverwaltung"/>
+                <MenuItem text="Kostenkonten" onAction="#handleKostenkonten"/>
+            </Menu>
+            <Menu text="Buchhaltung">
+                <MenuItem text="Buchen" onAction="#handleBuchung"/>    
+            </Menu>
+        </MenuBar>     
     </top> 
-     <center>  
-
+    <center>  
         <AnchorPane styleClass="startPane">
-        <Label text="HKV 0.0.1"
-               styleClass="startTitle"
-               layoutX="25" layoutY="20"/>
-        <Label text="Softwarelösung für die Immobilienwirtschaft/Hausverwaltung"
-               styleClass="startText"
-               layoutX="25" layoutY="60"/>
-        <Label text="Hersteller: O.Podlubnaja"
-               styleClass="startText"
-               layoutX="25" layoutY="80"/>
+            <Label text="HKV 0.0.1"
+                   styleClass="startTitle"
+                   layoutX="25" layoutY="20"/>
+            <Label text="Softwarelösung für die Immobilienwirtschaft/Hausverwaltung"
+                   styleClass="startText"
+                   layoutX="25" layoutY="60"/>
+            <Label text="Hersteller: O.Podlubnaja"
+                   styleClass="startText"
+                   layoutX="25" layoutY="80"/>
         </AnchorPane>
-
-     </center>
+    </center>
 </BorderPane>

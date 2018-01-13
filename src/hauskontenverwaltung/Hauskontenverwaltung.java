@@ -2,21 +2,14 @@ package hauskontenverwaltung;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuBar;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -33,14 +26,11 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     private Buchungsliste buchungsliste;
     private File dateiPath;
     private MenuController mcontroller;
-    public FXMLLoader loader;
-
+    private FXMLLoader loader;
     private File datei;
     private File gefundenEDatei;
     private File gefundenKDatei;
-    private File gefundenBDatei;
-    //private EigentuemerController econtroller;
-
+    private File gefundenBDatei;    
     private boolean aenderung;
 
     /**
@@ -66,7 +56,11 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     public Stage getFenster() {
         return fenster;
     }
-
+    /**
+     * Methode starten GUI
+     * @param primaryStage
+     * @throws Exception 
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         fenster = primaryStage;
@@ -105,6 +99,10 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
      * Methode schließt das Fenster
      */
     public void stop() {
+        if(!this.aenderung)
+        {
+            System.exit(0);
+        }
         Alert con = new Alert(Alert.AlertType.CONFIRMATION);
         con.setHeaderText("Datenänderung");
         con.setContentText("Sollen die Änderungen gespeichert werden?");
@@ -165,10 +163,9 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode liefert die eingelesenen Daten der Datei in der Kostenkontenliste
-     *
-     * @param file
-     * @return
+     * Methode liefert die eingelesenen Daten der Datei in der Kostenkontenliste     
+     * @param file File
+     * @return Kostenkontenliste
      */
     public Kostenkontenliste ladenKDatei(File file) {
         try { // wenn eine Datei gewählt wurde
@@ -192,10 +189,9 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode liefert die eingelesenen Daten der Datei in der Buchungsliste
-     *
-     * @param file
-     * @return
+     * Methode liefert die eingelesenen Daten der Datei in der Buchungsliste     
+     * @param file File
+     * @return Buchungsliste
      */
     public Buchungsliste ladenBDatei(File file) {
         try { // wenn eine Datei gewählt wurde
@@ -219,8 +215,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode sucht nach einer Datei und gibt Dateipfad zurück
-     *
+     * Methode sucht nach einer Datei und gibt Dateipfad zurück     
      * @param dir File
      * @param find String
      * @return File
@@ -248,8 +243,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode liefert Ordnerpfad ausgewälten Verzeichnises
-     *
+     * Methode liefert Ordnerpfad ausgewälten Verzeichnises     
      * @return selectedDirectory File
      */
     public File getDatei() {
@@ -291,8 +285,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode liefert due Änderung
-     *
+     * Methode liefert die Änderung     
      * @return aenderung
      */
     public boolean getAenderung() {

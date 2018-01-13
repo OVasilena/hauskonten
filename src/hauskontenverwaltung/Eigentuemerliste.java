@@ -33,7 +33,7 @@ public class Eigentuemerliste {
     // ÜberwachbareListe von Typ Eigentuemer    
     private ObservableList<Eigentuemer> eigentuemerListe;
     private boolean test = false;       
-    
+    private int letztenummer;
     
     public Eigentuemerliste() {
         // erzeugen des Listenobjektes
@@ -80,6 +80,20 @@ public class Eigentuemerliste {
         eigentuemerListe.add(eig);
 
     }
+    
+    /**
+     * Methode merkt letzte Kontonummer
+     * @param nummer int
+     */
+    public void setLetztenummer(int nummer)
+    {
+        this.letztenummer = nummer;
+    }
+    public int getLetztenummer()
+    {
+        return this.letztenummer;
+    }
+
     
     public void addEigentuemer(Eigentuemer e)
     {

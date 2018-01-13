@@ -1,9 +1,5 @@
 package hauskontenverwaltung;
 
-import static hauskontenverwaltung.Konstanten.AENDERN;
-import static hauskontenverwaltung.Konstanten.BASIS;
-import static hauskontenverwaltung.Konstanten.LEER;
-import static hauskontenverwaltung.Konstanten.NEU;
 import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -58,7 +54,7 @@ public class KostenkontenController implements Konstanten{
             anzeigeKontoInfo(kostenListe.getKostenkonto(kostenListe.sizeListe()-1));            
             int index = kostenListe.sizeListe()-1;
             tblAnzeige.getSelectionModel().select(index);                 
-            lblStand.setText("Gesatmkontostand: " + Double.toString(kostenListe.getGesamtStand())+ " EURO");
+            lblStand.setText("Gesatmkontostand: " + DF.format(kostenListe.getGesamtStand())+ " EURO");
             
         }
         else lblStatus.setText("Die Liste ist leer");
@@ -204,6 +200,7 @@ public class KostenkontenController implements Konstanten{
             this.kostenListe.removeKostenkonto(kk);
             lblStatus.setText(kk.toString() 
                               + " wurde gelöscht.");
+            this.hkVerwaltung.setAenderung(true);
             //this.hkVerwaltung.setAenderung(true);
         }       
         else

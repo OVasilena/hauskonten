@@ -1,7 +1,6 @@
 package hauskontenverwaltung;
 
 import java.util.Optional;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,6 +32,7 @@ public class EigentuemerController implements Konstanten {
     @FXML private TableColumn<Eigentuemer, String> colName;
     @FXML private TableColumn<Eigentuemer, String> colWhgnummer;
     @FXML private TableColumn<Eigentuemer, String> colKontostand;
+   
     
     // Referenz auf Haukontenverwaltung
     private Hauskontenverwaltung hkVerwaltung;
@@ -48,52 +48,61 @@ public class EigentuemerController implements Konstanten {
     
     // Referenz auf Eigentümerliste
     private Eigentuemerliste eigentListe;
+    /**
+     * Methode legt die Referenz auf Eigentuemerliste fest.
+     * Es wird der TableView der GUI mit der Liste verbunden. 
+     * Falls die Liste nicht leer ist, wird der letzte Datensatz angezeigt.
+     * @param egl Eigentuemerliste
+     */
     public void setEigentListe(Eigentuemerliste egl)
     {
         this.eigentListe = egl;
-        //System.out.println("Referenz auf Eigentümerliste");
-        //Liste an die Tabelle knüpfen
-        //System.out.println("Anzeige tabelle: " + eigentListe.getListe());
-        tblAnzeige.setItems(eigentListe.getListe());
-        //System.out.println("getListe " + eigentListe.getListe().size());
         
-        
-        //System.out.println("Gesatmkontostand: " + eigentListe.getGesamtStand()+ " EURO");
-        //for(Eigentuemer el: eigentListe.getListe()) System.out.println("Kontostand:" + el.getKontostand());
+        tblAnzeige.setItems(eigentListe.getListe());        
        
         if(!eigentListe.isEmpty())
         {
             lblStatus.setText(eigentListe.sizeListe() + " Eigentümer in der Liste");
             anzeigeEigentuemerInfo(eigentListe.getEigentuemer(eigentListe.sizeListe()-1));
             Eigentuemer eigent = eigentListe.getEigentuemer(eigentListe.sizeListe()-1);
-            int index = eigentListe.sizeListe()-1;
-            tblAnzeige.getSelectionModel().select(index);
+            // letzte Datensatz der Eigentuemerliste anzeigen
+            tblAnzeige.getSelectionModel().select(eigentListe.sizeListe()-1);
             
             String konto = eigent.getKontonummer();
-            int nummer = Integer.valueOf(konto.substring(2));
-            
-            eigent.setKonto(nummer);
-             lblStand.setText("Gesatmkontostand: " + Double.toString(eigentListe.getGesamtStand())+ " EURO");
+            int nummer = Integer.valueOf(konto.substring(2));  
+            if(this.eigentListe.getLetztenummer() > nummer) 
+            {
+                eigent.setKonto(this.eigentListe.getLetztenummer());
+                System.out.println("Vergleichen: " + this.eigentListe.getLetztenummer() + " > " + nummer);
+            }
+            else 
+            {
+                eigent.setKonto(nummer);
+                System.out.println("Oder: " + this.eigentListe.getLetztenummer() + " <= " + nummer);
+            }
+            lblStand.setText("Gesatmkontostand: " + DF.format(eigentListe.getGesamtStand()) + " EURO");
         }
         else lblStatus.setText("Die Liste ist leer");
     }
     
     /**
-     * Methode initialisiert die Daten
+     * Methode initialisiert die Tabellenspalten und verbindet diese mit 
+     * den Property-Werten der Eigentuemer
      */
     public void initialize()
     {
-        // Verbinden der Tabellenspalten mit den Properties
         colNummer.setCellValueFactory(cellData 
                     -> cellData.getValue().kontonummerProperty());
         colName.setCellValueFactory(cellData 
-                    -> cellData.getValue().vornameProperty().concat(", ").concat(cellData.getValue().nachnameProperty()));
+                    -> cellData.getValue().vornameProperty().concat(", ")
+                            .concat(cellData.getValue().nachnameProperty()));
         
         colWhgnummer.setCellValueFactory(cellData 
                     -> cellData.getValue().wohnungsnumerProperty());
         
         colKontostand.setCellValueFactory(cellData 
-                -> cellData.getValue().kontostandProperty().asObject().asString().concat(" €"));        
+                -> cellData.getValue().kontostandProperty().asObject()
+                            .asString().concat(" €"));        
         
         // Klickereignis: Klick auf Eigentümer in Tabelle
         // -> Anzeige dieser Daten
@@ -125,6 +134,15 @@ public class EigentuemerController implements Konstanten {
     }
     
     private int zustand;
+    /**
+     * Methode stellt den Zustand der Benutzeroberfläche ein. Es gibt
+     * vier Zustände: <br>
+     * <ul><li>BASIS: Basiszustand zeigt alle Datensätze an</li>
+     * <li>NEU: Erfassen einen neuen Eigentuemer</li>
+     * <li>AENDERN: Ändern von Eigentümerdaten</li>
+     * <li>LEER: Es sind keine Einträge in der  Eigentuemerliste</li>
+     * </ul>
+     */
     public void setZustand(int zustand)
     {
         this.zustand = zustand;
@@ -177,6 +195,9 @@ public class EigentuemerController implements Konstanten {
                 break;            
         }
     }
+    /**
+     * Ereignismethode nach Kick auf Button "Neu"
+     */
     @FXML 
     public void handleNeu()
     {
@@ -207,7 +228,9 @@ public class EigentuemerController implements Konstanten {
         }
         
     }
-    
+    /**
+     * Ereignismethode nach Klick auf Button "Ändern" 
+     */
     @FXML 
     public void handleAendern()
     {
@@ -239,7 +262,9 @@ public class EigentuemerController implements Konstanten {
             }
         }
     }
-    
+    /**
+     * Ereignismethode nach Klick auf Button "Löschen" 
+     */
     @FXML
     public void handleLoeschen()
     {
@@ -261,10 +286,20 @@ public class EigentuemerController implements Konstanten {
         Optional erg = con.showAndWait();
         if ( erg.get() == ButtonType.YES)
         {
+            
+            if(egm.getKontonummer().equals(eigentListe.getEigentuemer(eigentListe.sizeListe()-1).getKontonummer()) )
+            {
+                // es wird der letzte Eigentümer in der Liste gelöscht, Nummer darf nicht weiter vergeben                
+                int letztenummer = Integer.valueOf(egm.getKontonummer().substring(2));
+                if(letztenummer > this.eigentListe.getLetztenummer())
+                    this.eigentListe.setLetztenummer(letztenummer);
+                System.out.println("LetzteNummer: " + letztenummer);
+            }
             this.eigentListe.removeEigentuemer(egm);
             lblStatus.setText(egm.toString() 
                               + " wurde gelöscht.");
-            //this.hkVerwaltung.setAenderung(true);
+            this.hkVerwaltung.setAenderung(true);
+            
         }       
         else
         {
@@ -282,6 +317,9 @@ public class EigentuemerController implements Konstanten {
         }
     }
     
+    /**
+     * Methode zeig gewählten Datensatz in dee Tabelle an und setzt den Zustand. 
+     */
     public void aktZustand()
     {
         if(!this.eigentListe.isEmpty())
@@ -300,7 +338,12 @@ public class EigentuemerController implements Konstanten {
             leerenTextfelder();
         }
     }
-    
+    /**
+     * Methode übernimmt alle Eingabewerte und prüft diese auf Richtigkeit
+     * und Vollständigkeit
+     * @return eigegebenen Eigentuemer
+     * @throws Exception bei Falscheingaben
+     */
     private Eigentuemer getEingabeEigentuemer() throws Exception
     {
         Eigentuemer eigentuemer = new Eigentuemer();;
@@ -340,7 +383,9 @@ public class EigentuemerController implements Konstanten {
         eigentuemer.setWohnungsnummer(whg);
         return eigentuemer;
     }
-    
+    /**
+     * Methode enfernt alle Anzeigen in Textfeldern
+     */
     private void leerenTextfelder()
     {
         this.tfNummer.setText("");
@@ -348,7 +393,10 @@ public class EigentuemerController implements Konstanten {
         this.tfNachname.setText("");
         this.tfWhgnummer.setText("");     
     }
-    
+    /**
+     * Methode ermöglicht die Textfelder zu editieren oder nicht
+     * @param bool true - Editieren möglich
+     */
     private void eingabeEnabled(boolean bool)
     {        
         this.tfVorname.setEditable(bool);

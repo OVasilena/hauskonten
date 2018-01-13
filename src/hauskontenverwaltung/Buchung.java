@@ -7,8 +7,6 @@ package hauskontenverwaltung;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -142,12 +140,16 @@ public class Buchung implements Serializable, Konstanten{
     @Override
     public String toString()
     {
-        return "Datum\t\tBetrag\tE/A\tBeschreibung\tKontonummer\n"
-                + this.getBuchungstag().format(DTF) + "\t" 
-                + DF.format(this.getBetrag())+ "\t" 
-                + this.getVorgang() + "\t" 
-                + this.getBeschreibung() + "\t" 
-                + this.getKontonummer();
+        String zeichenkette;
+        //zeichenkette = "Datum\t\tBetrag\tE/A\tBeschreibung\tKontonummer\n";
+        zeichenkette = this.getBuchungstag().format(DTF) + ", " 
+                + DF.format(this.getBetrag());
+       if(this.getVorgang()) 
+           zeichenkette += ", E,";
+       else zeichenkette += ", A,";
+       zeichenkette += this.getBeschreibung() + ", " + this.getKontonummer();
+
+        return zeichenkette;
     }
     
 }

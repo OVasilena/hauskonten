@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hauskontenverwaltung;
 
 import java.time.LocalDate;
@@ -20,7 +15,7 @@ import javafx.scene.control.ToggleGroup;
  *
  * @author opodlubnaja
  */
-public class BuchungController {
+public class BuchungController implements Konstanten{
 
     @FXML
     private TextField tfKontonr;
@@ -34,8 +29,7 @@ public class BuchungController {
     private ToggleGroup myToggleGroup;
     @FXML
     private RadioButton rbtnE, rbtnA;
-    @FXML
-    private Button btnUebernehmen;
+ 
     @FXML
     private Label lblStatus;
 
@@ -72,6 +66,17 @@ public class BuchungController {
         this.kkliste = kkl;
         
     }
+    // Referenz auf Haukontenverwaltung
+    private Hauskontenverwaltung hkVerwaltung;
+    /**
+     * Methode setzt die Referenz 
+     * @param hkv Hauskontenverwaltung
+     */
+    public void setHausVerwaltung(Hauskontenverwaltung hkv)
+    {
+        this.hkVerwaltung = hkv;
+        
+    }
 
     public void initialize() {
         
@@ -98,7 +103,7 @@ public class BuchungController {
             tfKontonr.setText(bg.getKontonummer());
             tfBeschreibung.setText(bg.getBeschreibung());
             dpDate.setValue(bg.getBuchungstag());
-            tfBetrag.setText(Double.toString(bg.getBetrag()));
+            tfBetrag.setText(DF.format(bg.getBetrag()));
             if(bg.getVorgang()) rbtnE.setSelected(true);
             else rbtnA.setSelected(true);
                      
@@ -109,13 +114,10 @@ public class BuchungController {
      * Ereignismethode nach Klick auf Button "Übernehmen".
      */
     public void handleUebernehmen() {
-
-        //System.out.println("Hier soll Label angezeigt werden");
-
         try {
             lblStatus.setText("Daten wurden übernommen");
             Buchung buchung = getEingabeBuchung();
-
+            this.hkVerwaltung.setAenderung(true);
             this.bliste.addBuchung(buchung);
             for(Eigentuemer eg: egliste.getListe()) 
             {
@@ -223,27 +225,21 @@ public class BuchungController {
         System.out.println("Betrag: " + zahl);
         if (zahl < 0) {
             tfBetrag.requestFocus();
-            throw new Exception("Bitte richriten Betrag eingeben!");
+            throw new Exception("Bitte nur positive Zahlen eingeben!");
         }
-        
-        
         
         bhg.setBetrag(zahl);
                 
         if(myToggleGroup.getSelectedToggle().equals(rbtnE)) 
         {
-            bhg.setVorgang(true);
-            //egm.setEinzahlen(zahl);
-            //System.out.println("neue kontostand: " + egm.getKontostand());
+            bhg.setVorgang(true);           
         }        
         if(myToggleGroup.getSelectedToggle().equals(rbtnA)) 
         {
-            bhg.setVorgang(false);
-            //egm.setAuszahlen(zahl);
-            //System.out.println("neue kontostand: " + egm.getKontostand());
+            bhg.setVorgang(false);        
         }
         
-        System.out.println(bhg);
+        //System.out.println(bhg);
         return bhg;
     }
     
