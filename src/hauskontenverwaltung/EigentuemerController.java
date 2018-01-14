@@ -73,12 +73,12 @@ public class EigentuemerController implements Konstanten {
             if(this.eigentListe.getLetztenummer() > nummer) 
             {
                 eigent.setKonto(this.eigentListe.getLetztenummer());
-                System.out.println("Vergleichen: " + this.eigentListe.getLetztenummer() + " > " + nummer);
+                //System.out.println("Vergleichen: " + this.eigentListe.getLetztenummer() + " > " + nummer);
             }
             else 
             {
                 eigent.setKonto(nummer);
-                System.out.println("Oder: " + this.eigentListe.getLetztenummer() + " <= " + nummer);
+                //System.out.println("Oder: " + this.eigentListe.getLetztenummer() + " <= " + nummer);
             }
             lblStand.setText("Gesatmkontostand: " + DF.format(eigentListe.getGesamtStand()) + " EURO");
         }

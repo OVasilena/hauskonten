@@ -239,7 +239,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
                 //if (files[i].getName().equalsIgnoreCase(find)) { 
                 if (temp.contains(find)) {
                     matches = files[i];
-                    System.out.println(files[i].getName());
+                    //System.out.println(files[i].getName());
                     break;
 
                 }
@@ -263,7 +263,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
                 = fc.showDialog(this.getFenster());
 
         if (selectedDirectory == null) {
-            System.out.println("No Directory selected");
+            //System.out.println("No Directory selected");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Ordner nicht gewählt");
             alert.setHeaderText("Bitte wählen Sie einen Verzeichnis: ");
@@ -278,7 +278,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             }
             alert.showAndWait();
         } else {
-            System.out.println(selectedDirectory.getAbsolutePath());
+            //System.out.println(selectedDirectory.getAbsolutePath());
         }
 
         return selectedDirectory;

@@ -16,8 +16,8 @@
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
-    <children>
-        <HBox layoutX="20" layoutY="25">
+   
+        <HBox styleClass="hbox">
             <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
@@ -43,15 +43,15 @@
                 <Button fx:id="btnNeu"
                        text="Neu"
                        onAction="#handleNeu"
-                       styleClass="btn" />
+                       styleClass="btnNeu" />
                 <Button fx:id="btnAendern"
                        text="Ändren"
                        onAction="#handleAendern"
-                       styleClass="btn"/>
+                       styleClass="btnAendern"/>
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
                        onAction="#handleLoeschen"
-                       styleClass="btn">
+                       styleClass="btnLoeschen">
                     <tooltip>
                         <Tooltip text="" styleClass="tooltip"/>
                     </tooltip>
@@ -80,7 +80,7 @@
                 <Label fx:id="lblStand" text="Hier wird Gesamt Kontostand angezeigt"/>
             </HBox>
             </VBox>
-    </children>  
+
     
     
 </AnchorPane>

@@ -203,7 +203,7 @@ public class BuchungController implements Konstanten{
         bhg.setKontonummer(strNummer);
         // **** Eingabe Buchungsdatum ****
         LocalDate buchdatum = dpDate.getValue();
-        System.out.println("Datum: " + buchdatum);
+        //System.out.println("Datum: " + buchdatum);
         if (buchdatum == null || buchdatum.isAfter(LocalDate.now())) {
             dpDate.requestFocus();
             throw new Exception("Bitte ein Datum in der Vergangenheit wählen!");
@@ -222,7 +222,7 @@ public class BuchungController implements Konstanten{
 
         // **** Eingabe Betrag ****
         Double zahl = Double.valueOf(tfBetrag.getText().trim());
-        System.out.println("Betrag: " + zahl);
+        //System.out.println("Betrag: " + zahl);
         if (zahl < 0) {
             tfBetrag.requestFocus();
             throw new Exception("Bitte nur positive Zahlen eingeben!");

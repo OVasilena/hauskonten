@@ -56,9 +56,14 @@ public class StartMenuController {
     {
     Popup popup = new Popup();    
     popup.setAutoHide(true);    
-    popup.centerOnScreen();
+    //popup.centerOnScreen();
+    //popup.sizeToScene();
+
     FXMLLoader loader = new FXMLLoader(getClass().getResource("Info.fxml"));    
     popup.getContent().add((Parent)loader.load());    
+    //popup.setWidth(200);
+//popup.setHeight(200);
+popup.setAutoFix(true);
     popup.show(this.hkverwaltung.getFenster());
 
     }

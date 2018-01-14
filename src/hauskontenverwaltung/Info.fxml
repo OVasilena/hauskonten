@@ -9,7 +9,7 @@
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
-    <Label layoutX="20" layoutY="100"
+    <Label 
            styleClass="lblInfoName"
            text="Hauskontennverwaltung ist auf Java8 und JavaFX basiert.
                 &#10;Produkt Version 0.0.1

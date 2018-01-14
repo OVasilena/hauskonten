@@ -27,10 +27,7 @@
     -fx-alignment: CENTER;
 }
 
-.lbl {
-    -fx-pref-width: 120px;
-    -fx-alignment: CENTER_RIGHT;
-}
+
 
 #dpDate, #tfKontonr, #tfBeschreibung {
     -fx-pref-width: 200px;
@@ -53,11 +50,7 @@
     -fx-pref-width: 100px;
 }
 
-#lblStatus {
-    -fx-background-color: white;
-    -fx-pref-width: 600px;
-    -fx-padding: 2px;
-}
+
 
 #tblAnzeige {
     -fx-pref-width: 600px;
@@ -85,12 +78,7 @@
     -fx-alignment: CENTER_RIGHT;
 }
 
-#lblStand {
 
-    -fx-pref-width: 600px;
-    -fx-padding: 2px;
-    -fx-alignment: CENTER_RIGHT;
-}
 
 .egrid {
     -fx-hgap: 10px;
@@ -154,8 +142,7 @@
 .apInfo {
     -fx-background-color: rgba(255, 255, 255, 0.5);
     -fx-effect: dropshadow(gaussian, #9cb3b5, 50, 0, 0, 0);
-    -fx-border-radius: 10 10 10 10;
-
+    -fx-background-radius: 20;
 }
 
 /*Info Labels*/
@@ -163,5 +150,26 @@
 .lblInfoName {
     -fx-text-fill: #2f5dff;
     -fx-font-size: 1.2em;
-    -fx-font-weight: bolder;
+    -fx-font-weight: bolder;    
+    -fx-padding: 20px;    
+}
+
+/*Labels*/
+#lblStand {
+    -fx-pref-width: 600px;
+    -fx-padding: 2px;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-text-fill: black;
+    -fx-font-weight: bolder;    
+}
+#lblStatus {
+    -fx-background-color: #9cb3b5;
+    -fx-pref-width: 600px;
+    -fx-font-weight: bold;
+    -fx-border-color: #1e9cb5;
+    -fx-border-width: 2px;
+}
+.lbl {
+    -fx-pref-width: 120px;
+    -fx-alignment: CENTER_RIGHT;
 }
