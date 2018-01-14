@@ -16,8 +16,8 @@
         <URL value="@style.css"/>
     </stylesheets>
     
+    
     <top>    
-        <AnchorPane >   
         <MenuBar >     
             <Menu text="Objekt" >
                
@@ -28,9 +28,10 @@
                 <MenuItem text="Info" onAction="#handleInfo"/>    
             </Menu>
         </MenuBar>     
-        </AnchorPane>
-    </top> 
-    <center>  
+    </top>
+    <center>
+    
+    
         <AnchorPane styleClass="startPane">
             
             <Label text="HKV 0.0.1"
