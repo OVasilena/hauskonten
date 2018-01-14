@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane styleClass="buchPane"            
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hauskontenverwaltung.BuchungController">
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+    <children>
+         <HBox layoutX="20" layoutY="25" styleClass="hbox">
+            <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
+                <Label text="Kontonummer: "
+                       styleClass="lbl" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="0"/>
+                <Label text="Datum: "
+                       styleClass="lbl" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="1"/>
+                <Label text="Beschreibung: "
+                       styleClass="lbl" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="2"/>  
+                <Label text="Betrag: "
+                       styleClass="lbl" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="3"/>      
+                        
+                <TextField GridPane.columnIndex="1" 
+                       GridPane.rowIndex="0"
+                       fx:id="tfKontonr"/>
+                    
+                <DatePicker fx:id="dpDate"                         
+                        GridPane.columnIndex="1" 
+                        GridPane.rowIndex="1"/>     
+                <TextField fx:id="tfBeschreibung"
+                       GridPane.columnIndex="1" 
+                       GridPane.rowIndex="2"/>
+                <HBox GridPane.columnIndex="1" 
+                       GridPane.rowIndex="3"
+                        styleClass ="hboxBuch">
+
+                        <TextField fx:id="tfBetrag"/>
+                        <fx:define>
+                        <ToggleGroup fx:id="myToggleGroup"/>
+                        </fx:define>
+                        <RadioButton text="Einzahlung" toggleGroup="$myToggleGroup" fx:id="rbtnE"/>
+                        <RadioButton text="Ausgabe" toggleGroup="$myToggleGroup" fx:id="rbtnA"/>
+                </HBox>
+            </GridPane>
+            <VBox styleClass="vbox">
+                <Button text="Übernehmen"
+                        onAction="#handleUebernehmen"
+                        styleClass="btnBuchung" />
+                
+            </VBox>            
+            
+        </HBox>
+            <HBox layoutX="20" layoutY="190">
+                <Label fx:id="lblStatus" text="Das ist die Statuszeile!"/>
+            </HBox>
+            <!-- *** Tabellenbebereich (ScrollPane) *** -->
+        <ScrollPane layoutX="20" layoutY="230" >
+        <TableView fx:id="tblAnzeige" >
+            <columns>
+                <TableColumn fx:id="colDatum" text="Datum"
+                             resizable="false" editable="false"/>
+                <TableColumn fx:id="colBetrag" text="Betrag"
+                             resizable="false" editable="false"/>
+                <TableColumn fx:id="colBuchungsart" text="E/A"
+                             resizable="false" editable="false"/>  
+                <TableColumn fx:id="colBeschreibung" text="Beschreibung"
+                             resizable="false" editable="false"/>   
+                <TableColumn fx:id="colKontonummer" text="Kontonummer"
+                             resizable="false" editable="false"/>             
+            </columns>
+        </TableView>
+        </ScrollPane>
+    </children>
+</AnchorPane>
