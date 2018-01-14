@@ -20,7 +20,7 @@
         <AnchorPane >   
         <MenuBar >     
             <Menu text="Objekt" >
-                <MenuItem text="_Neu" onAction="#handleNeu"/>
+               
                 <MenuItem text="_Laden" onAction="#handleLaden"/>
                 <MenuItem text="_Beenden" onAction="#handleBeenden"/>
             </Menu>
@@ -32,15 +32,17 @@
     </top> 
     <center>  
         <AnchorPane styleClass="startPane">
+            
             <Label text="HKV 0.0.1"
                    styleClass="startTitle"
-                   layoutX="25" layoutY="20"/>
+                   layoutX="25" layoutY="30"/>
             <Label text="Softwarelösung für die Immobilienwirtschaft/Hausverwaltung"
                    styleClass="startText"
-                   layoutX="25" layoutY="60"/>
+                   layoutX="25" layoutY="70"/>
             <Label text="Hersteller: O.Podlubnaja"
                    styleClass="startText"
-                   layoutX="25" layoutY="80"/>
+                   layoutX="25" layoutY="90"/>
+            
         </AnchorPane>
     </center>
 </BorderPane>

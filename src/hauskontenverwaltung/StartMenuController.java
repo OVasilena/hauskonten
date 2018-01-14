@@ -3,8 +3,12 @@ package hauskontenverwaltung;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 
 /**
  *
@@ -24,11 +28,7 @@ public class StartMenuController {
         this.hkverwaltung = hv;
     }
     
-     @FXML
-    public void handleNeu()
-    {
-        System.out.println("Button NEU");
-    }
+    
     @FXML
     public void handleLaden() throws IOException 
     {
@@ -38,6 +38,7 @@ public class StartMenuController {
         menuPane  = loader.load();
         border = hkverwaltung.getRoot();
         border.setTop(menuPane);
+        
         this.mcontroller = loader.getController();
         mcontroller.setVerwaltung(this.hkverwaltung);
         this.hkverwaltung.setMController(mcontroller);
@@ -51,9 +52,15 @@ public class StartMenuController {
     }
     
     @FXML
-    public void handleInfo()
+    public void handleInfo() throws IOException
     {
-        
+    Popup popup = new Popup();    
+    popup.setAutoHide(true);    
+    popup.centerOnScreen();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("Info.fxml"));    
+    popup.getContent().add((Parent)loader.load());    
+    popup.show(this.hkverwaltung.getFenster());
+
     }
     
 }
