@@ -13,9 +13,9 @@ import javafx.beans.property.SimpleStringProperty;
  * <li>Nachname</li>
  * <li>Wohnungsnummer</li>
  * <li>Kontostand</li></ul>  
- * @author opodlubnaja
+ * @author Olga Podlubnaja
  */
-public class Eigentuemer implements Serializable
+public class Eigentuemer implements Serializable, Konstanten
 {
     
     private String wohnungsnummer;
@@ -53,23 +53,47 @@ public class Eigentuemer implements Serializable
         this.vorname = vorname;
         this.nachname = nachname;
         this.wohnungsnummer = whgnummer;
-        this.kontonummer = "EK" + Integer.toString(nummer);  
-        //System.out.println("Nummer aus getID: " + nummer);
+        this.kontonummer = "EK" + Integer.toString(nummer);
         this.kontostand = saldo;
         
     }
     
+    // --- Kontonummer ---
+    /**
+     * Methode liefert die Kontonummer des Eigentümers
+     * @return kontonummer String
+     */
+    public String getKontonummer()
+    {
+        return this.kontonummer;
+    }  
+    
+    /**
+     * Methode liefert die Property der Kontonummer
+     * @return SimpleStringProperty kontonummer
+     */  
+     public SimpleStringProperty kontonummerProperty()
+    {
+        return new SimpleStringProperty(this.kontonummer);
+    }
+     
+    /**
+     * Methode setzt neue id für Kontonummerberechnung
+     * @param nm int
+     */
     public void setKonto(int nm)
     {
         this.id= nm;
     }
     
+    /**
+     * Methode liefert nummer
+     * @return nummer int
+     */
     public int getID()
     {
         return nummer;
-    }
-    
-    
+    }   
     
     // --- Vorname ---
     /**
@@ -87,6 +111,15 @@ public class Eigentuemer implements Serializable
     public String getVorname()
     {
         return this.vorname;
+    }
+    
+    /**
+     * Methode liefert die Property des Vornamens des Eigentümers
+     * @return SimpleStringProperty vorname
+     */    
+     public SimpleStringProperty vornameProperty()
+    {
+        return new SimpleStringProperty(this.vorname);
     }
 
     // --- Nachname ---
@@ -106,11 +139,20 @@ public class Eigentuemer implements Serializable
     {
         return this.nachname;
     }
-
+    
+    /**
+     * Methode liefert die Property des Nachnamens 
+     * @return SimpleStringProperty nachname
+     */
+    public SimpleStringProperty nachnameProperty()
+    {
+        return new SimpleStringProperty(this.nachname);
+    } 
+    
     // --- Wohnungsnummer ---
     /**
      * Methode setzt die Wohnungsnummer des Eigentümers
-     * @param whgnummer 
+     * @param whgnummer  String
      */
     public void setWohnungsnummer(String whgnummer)
     {
@@ -124,38 +166,35 @@ public class Eigentuemer implements Serializable
     {
         return this.wohnungsnummer;
     }
-
-    // --- Kontonummer ---
-    /**
-     * Methode liefert den Kontostand des Eigentümers
-     * @return kontonummer String
-     */
-    public String getKontonummer()
-    {
-        return this.kontonummer;
-    }   
     
+    /**
+     * Methode liefert die Property der Wihnungsnummer
+     * @return SimpleStringProperty wohnungsnummer
+     */
+    public SimpleStringProperty wohnungsnumerProperty()
+    {
+        return new SimpleStringProperty(this.wohnungsnummer);
+    } 
 
     // --- Kontostand ---
     /**
-     * Methode setzt den Kontostand des Eigentümers
+     * Methode setzt den Kontostand des Eigentümers bei
+     * der Einzahlung
      * @param buchung double
      */
     public void setEinzahlen(double buchung)
     {
-        this.kontostand +=buchung;
-        //this.kontostand = saldo;
-        
+        this.kontostand +=buchung;  
     }
+    
      /**
-     * Methode setzt den Kontostand des Eigentümers
+     * Methode setzt den Kontostand des Eigentümers bei
+     * der Auszahlung
      * @param buchung double
      */
     public void setAuszahlen(double buchung)
     {
         this.kontostand -=buchung;
-        //this.kontostand = saldo;
-        
     }
     /**
      * Methode liefert aktuellen Kontostand des Eigentümers
@@ -165,7 +204,32 @@ public class Eigentuemer implements Serializable
     {
         return this.kontostand;
     }
+    
+    /**
+     * Methode liefert die Property der Kontonummer
+     * @return SimpleStringProperty kontonummer
+     */  
+    public SimpleDoubleProperty kontostandProperty()
+    {
+        return new SimpleDoubleProperty(this.kontostand);
+    }
   
+    /**
+     * Methode liefert boolean-Wert bei Kontovergleich
+     * true - Kontonummer existiert
+     * @param zahl String
+     * @return boolean
+     */
+    public boolean isKonto(String zahl)
+    {
+        return this.getKontonummer().equals(zahl);
+    } // Ende isKonto()
+    
+    /**
+     * Methode gibt eine Zeichnenkette mit den 
+     * Eigentümerinformationen zurück.
+     * @return Zeichenkette
+     */
     @Override
     public String toString()
     {
@@ -173,38 +237,6 @@ public class Eigentuemer implements Serializable
                 + ", Eigentümername: " + getNachname() + ", "
                 + getVorname() + ", Wohnungsnummer: "
                 + getWohnungsnummer() + ", Kontostand: " 
-                + getKontostand() + " €";
-    }
-    
-    // Methoden liefern die Eigenschaften
-    
-    public SimpleStringProperty kontonummerProperty()
-    {
-        return new SimpleStringProperty(this.kontonummer);
-    }
-    
-    public SimpleStringProperty vornameProperty()
-    {
-        return new SimpleStringProperty(this.vorname);
-    }
-    
-    public SimpleStringProperty nachnameProperty()
-    {
-        return new SimpleStringProperty(this.nachname);
-    } 
-    
-    public SimpleStringProperty wohnungsnumerProperty()
-    {
-        return new SimpleStringProperty(this.wohnungsnummer);
-    } 
-    
-    public SimpleDoubleProperty kontostandProperty()
-    {
-        return new SimpleDoubleProperty(this.kontostand);
-    }
-    
-    public boolean isKonto(String zahl)
-    {
-        return this.getKontonummer().equals(zahl);
-    }
-}
+                + DF.format(getKontostand()) + " €";
+    } // Ende toString()
+} // Ende der Klasse Eigentuemer

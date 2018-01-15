@@ -7,9 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane styleClass="kostenPane"
-            prefHeight="640.0" 
-            prefWidth="640.0"
+<AnchorPane styleClass="kostenPane"            
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="hauskontenverwaltung.KostenkontenController">
     
@@ -17,8 +15,8 @@
         <URL value="@style.css"/>
     </stylesheets>
    
-        <HBox styleClass="hbox">
-            <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
+        <HBox styleClass="hbox" layoutX="20" layoutY="20">
+            <GridPane  styleClass="egrid">
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
                        GridPane.columnIndex="0" 
@@ -28,18 +26,16 @@
                        GridPane.columnIndex="0" 
                        GridPane.rowIndex="1"/>                
                 
-                <TextField fx:id="tfNummer"
-                       text=""                       
+                <TextField fx:id="tfNummer"         
                        styleClass="tf" 
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="0"/>
                 <TextField fx:id="tfBezeichnung"
-                       text=""
                        styleClass="tf" 
                        GridPane.columnIndex="1" 
                        GridPane.rowIndex="1"/>                
                 </GridPane>
-            <VBox  layoutX="500" layoutY="25">
+            <VBox  styleClass="vbox">
                 <Button fx:id="btnNeu"
                        text="Neu"
                        onAction="#handleNeu"
@@ -56,31 +52,29 @@
                         <Tooltip text="" styleClass="tooltip"/>
                     </tooltip>
                 </Button>
-            </VBox>               
-            
+            </VBox>     
         </HBox>
-            <HBox layoutX="20" layoutY="140">
-                <Label fx:id="lblStatus" text="Das ist die Statuszeile!"/>
-            </HBox>
-            <!-- *** Tabellenbebereich (ScrollPane) *** -->
-            <VBox layoutX="20" layoutY="170" >
-        <ScrollPane  >
+        <HBox layoutX="20" layoutY="190">
+            <Label fx:id="lblStatus" text="Das ist die Statuszeile!"/>
+        </HBox>
+            <!-- *** Tabellenbebereich (ScrollPane) *** -->            
+        <ScrollPane layoutX="20" layoutY="230">
         <TableView fx:id="tblAnzeige" >
             <columns>
                 <TableColumn fx:id="colNummer" text="Kontonummer"
+                             styleClass="colNummerKonto"
                              resizable="false" editable="false"/>
                 <TableColumn fx:id="colBezeichnung" text="Bezeichnung"
+                             styleClass="colBezeichnungKonto"
                              resizable="false" editable="false"/>
                 <TableColumn fx:id="colKontostand" text="Kontostand"
+                             styleClass="colKontostandKonto"
                              resizable="false" editable="false"/>                
             </columns>
         </TableView>
         </ScrollPane>
-         <HBox layoutX="20" layoutY="620">
-                <Label fx:id="lblStand" text="Hier wird Gesamt Kontostand angezeigt"/>
-            </HBox>
-            </VBox>
-
-    
-    
+        <HBox layoutX="20" layoutY="580">
+            
+            <Label fx:id="lblStand" text="Gesamtkontostand"/>
+        </HBox>
 </AnchorPane>

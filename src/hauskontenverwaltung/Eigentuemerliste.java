@@ -102,7 +102,7 @@ public class Eigentuemerliste {
     
     /**
      * Methode berechnen Gesamtkontostand 
-     * @return 
+     * @return double
      */
     public double getGesamtStand()
     {

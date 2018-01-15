@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="hauskontenverwaltung.MenuController"
+            styleClass="objectPane">
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+    
+    <Label text="Objekt geladen" 
+           styleClass="lblObject" 
+           layoutX="250" layoutY="25"/>
+    <GridPane layoutX="200" layoutY="50" styleClass="gridpaneObject">
+         <Label text="Straße: "
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="0"/>
+        <Label text="PLZ: "
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="1"/>    
+        <Label text="Ort: "
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="0" 
+                       GridPane.rowIndex="2"/>   
+        <Label text="Möllendorffstr."
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="1" 
+                       GridPane.rowIndex="0"/>
+        <Label text="10365"
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="1" 
+                       GridPane.rowIndex="1"/>    
+        <Label text="Berlin"
+                       styleClass="lblGPobject" 
+                       GridPane.columnIndex="1" 
+                       GridPane.rowIndex="2"/>  
+        
+    </GridPane>    
+</AnchorPane>

@@ -11,10 +11,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
- *
- * @author opodlubnaja
+ * FXML Controller class enthält alle Ereignisroutinen, um auf 
+ * Aktionen in der Benutzeroberfäche zu reagieren. 
+ * @author Olga Podlubnaja
  */
-public class KostenkontenController implements Konstanten{
+public class KostenkontenController implements Konstanten
+{
     @FXML private TextField tfNummer, tfBezeichnung;
     
     @FXML private Button btnNeu, btnAendern, btnLoeschen;
@@ -36,29 +38,34 @@ public class KostenkontenController implements Konstanten{
     public void setHausVerwaltung(Hauskontenverwaltung hkv)
     {
         this.hkVerwaltung = hkv;
-        
     }
     
     // Referenz auf Kostenkontenliste
     private Kostenkontenliste kostenListe;
+    /**
+     * Methode setzt die Referenz.
+     * Es wird der TableView der GUI mit der Liste verbunden. 
+     * Falls die Liste nicht leer ist, wird der letzte Datensatz 
+     * angezeigt.
+     * @param kl Kostenkontenliste
+     */
     public void setKostenliste(Kostenkontenliste kl)
     {
         this.kostenListe = kl;
-        tblAnzeige.setItems(kostenListe.getListe());
-        //System.out.println("getKostenListe " + kostenListe.getListe().size());
-        lblStatus.setText(kostenListe.sizeListe() + " Kostenkonten in der Liste");
-        
-        
+        tblAnzeige.setItems(kostenListe.getListe());       
+        lblStatus.setText(kostenListe.sizeListe() 
+                           + " Kostenkonten in der Liste");
          if(!kostenListe.isEmpty())
         {
-            anzeigeKontoInfo(kostenListe.getKostenkonto(kostenListe.sizeListe()-1));            
+            anzeigeKontoInfo(kostenListe.getKostenkonto
+                                    (kostenListe.sizeListe()-1));            
             int index = kostenListe.sizeListe()-1;
             tblAnzeige.getSelectionModel().select(index);                 
-            lblStand.setText("Gesatmkontostand: " + DF.format(kostenListe.getGesamtStand())+ " EURO");
-            
+            lblStand.setText("Gesatmkontostand: " 
+                        + DF.format(kostenListe.getGesamtStand())
+                        + " EURO");
         }
         else lblStatus.setText("Die Liste ist leer");
-        
     }
     
      /**
@@ -68,34 +75,44 @@ public class KostenkontenController implements Konstanten{
     {
         // Verbinden der Tabellenspalten mit den Properties
         colNummer.setCellValueFactory(cellData 
-                    -> cellData.getValue().kontonummerProperty());
+                    -> cellData.getValue()
+                               .kontonummerProperty());
         colBezeichnung.setCellValueFactory(cellData 
-                    -> cellData.getValue().bezeichnungProperty()); 
+                    -> cellData.getValue()
+                               .bezeichnungProperty()); 
         colKontostand.setCellValueFactory(cellData 
-                -> cellData.getValue().kontostandProperty().asObject().asString().concat(" €"));        
+                    -> cellData.getValue()
+                               .kontostandProperty()
+                               .asObject().asString()
+                               .concat(" €"));        
         
         // Klickereignis: Klick auf Eigentümer in Tabelle
-        // -> Anzeige dieser Daten
-        
+        // -> Anzeige dieser Daten        
         tblAnzeige.getSelectionModel().selectedItemProperty()
                   .addListener((observable, oldValue, newValue)
                        -> anzeigeKontoInfo(newValue));
-        // Auswahl des ersten DS
-        
-        
-        
     } // Ende Methode initialize()
     
+    /**
+     * Methode zeigt die Daten des Kostenkonten in den 
+     * Textfeldern 
+     * @param konto Kostenkonto
+     */
     public void anzeigeKontoInfo(Kostenkonto konto)
     {
          if(konto != null)
         {            
             tfNummer.setText(konto.getKontonummer());
             tfBezeichnung.setText(konto.getBezeichnung());
-                     
         }
     }
     
+    /**
+     * Methode übernimmt alle Eingabewerte und prüft diese 
+     * auf Richtigkeit und Vollständigkeit
+     * @return eigegebenen Kostenkonto
+     * @throws Exception bei Falscheingaben
+     */
     private Kostenkonto getEingabeKostenkonto() throws Exception
     {
         Kostenkonto kostenkonto = new Kostenkonto();
@@ -104,15 +121,18 @@ public class KostenkontenController implements Konstanten{
         {
             tfNummer.selectAll();
             tfNummer.requestFocus();
-            throw new Exception("Kostenkonto falsch eingetragen. Konto hat nicht mehr als 5 Zeichen");
+            throw new Exception("Kostenkonto falsch eingetragen." 
+                                + " Konto hat nur 5 Zeichen");
         }
         kostenkonto.setKontonummer(konto);
         String bezeichnung = tfBezeichnung.getText().trim();
-        kostenkonto.setBezeichnung(bezeichnung);
-        
+        kostenkonto.setBezeichnung(bezeichnung);        
         return kostenkonto;
     }
     
+    /**
+     * Ereignismethode nach Kick auf Button "Neu"
+     */
     @FXML 
     public void handleNeu()
     {
@@ -120,38 +140,40 @@ public class KostenkontenController implements Konstanten{
         {
             lblStatus.setText("Neue Kostenkonto anlegen");           
             this.setZustand(NEU);
-            
-            
         }
         else if(this.zustand == NEU)
         {
             try
             {
                 // Konto übernehmen  mit Eingabeprüfung
-                Kostenkonto kkonto = this.getEingabeKostenkonto();
-                this.kostenListe.addKonto(kkonto);
-                
+                Kostenkonto kkonto = getEingabeKostenkonto();
+                this.kostenListe.addKonto(kkonto);                
                 tblAnzeige.getSelectionModel().select(kkonto);
                 this.setZustand(BASIS);
-                lblStatus.setText("Zugefügt: " + kkonto.toString());
+                lblStatus.setText("Zugefügt: " 
+                                   + kkonto.toString());
                 this.hkVerwaltung.setAenderung(true);
             }
             catch(Exception e)
             {
                 lblStatus.setText(e.getMessage());
             }
-        }
-        
-    }
+        }        
+    } // Ende handleNeu()
     
+    /**
+     * Ereignismethode nach Kick auf Button "Ändern"
+     */
      @FXML 
     public void handleAendern()
     {
         if(this.zustand == BASIS)
         {
             setZustand(AENDERN);
-            int index = tblAnzeige.getSelectionModel().getSelectedIndex();
-            lblStatus.setText("aktuell gewählt: " + kostenListe.getKostenkonto(index));
+            int index = tblAnzeige.getSelectionModel()
+                                  .getSelectedIndex();
+            lblStatus.setText("aktuell gewählt: " 
+                            + kostenListe.getKostenkonto(index));
         }
         else if(this.zustand == AENDERN)
         {
@@ -160,8 +182,7 @@ public class KostenkontenController implements Konstanten{
                 Kostenkonto kk = this.getEingabeKostenkonto();
                 int index = tblAnzeige.getSelectionModel()
                                       .getSelectedIndex();
-                this.kostenListe.setKostenkonto(index, kk);
-                
+                this.kostenListe.setKostenkonto(index, kk);                
                 lblStatus.setText(kk.toString() 
                                   + " wurde aktualisiert.");
                 setZustand(BASIS);
@@ -174,23 +195,26 @@ public class KostenkontenController implements Konstanten{
                 lblStatus.setText(e.getMessage());
             }
         }
-    }
+    } // Ende hnadleAendern()
     
+    /**
+     * Ereignismethode nach Kick auf Button "Löschen"
+     */
     @FXML
     public void handleLoeschen()
     {
         if(this.zustand == NEU || this.zustand == AENDERN)
         {
             lblStatus.setText("Vorgang abgebrochen");
-            aktZustand();
-            
+            aktZustand();            
         }
         else
         {
-        Kostenkonto kk = tblAnzeige.getSelectionModel().getSelectedItem();
+        Kostenkonto kk = tblAnzeige.getSelectionModel()
+                                   .getSelectedItem();
         Alert con = new Alert(Alert.AlertType.CONFIRMATION );
         con.setTitle("Löschabfrage");
-        con.setHeaderText("Wollen Sie die Person löschen?");
+        con.setHeaderText("Wollen Sie das Kostenkonto löschen?");
         con.setContentText(kk.toString());
         con.getButtonTypes().setAll(ButtonType.YES,
                                     ButtonType.NO);
@@ -201,25 +225,32 @@ public class KostenkontenController implements Konstanten{
             lblStatus.setText(kk.toString() 
                               + " wurde gelöscht.");
             this.hkVerwaltung.setAenderung(true);
-            //this.hkVerwaltung.setAenderung(true);
         }       
         else
-        {
-            // Methode verlassen
+        {            
             lblStatus.setText("Vorgang abgebrochen.");
             return;
         }
         if(this.kostenListe.sizeListe() == 0) 
         {
             this.setZustand(LEER);
-            leerenTextfelder();
-            
+            leerenTextfelder();            
         }
         else this.setZustand(BASIS);
         }
     }
     
     private int zustand;
+    /**
+     * Methode stellt den Zustand der Benutzeroberfläche ein. 
+     * Es gibt vier Zustände: <br>
+     * <ul><li>BASIS: Basiszustand zeigt alle Datensätze an</li>
+     * <li>NEU: Erfassen ein neues Kostenkonto</li>
+     * <li>AENDERN: Ändern von Kostenkontodaten</li>
+     * <li>LEER: Es sind keine Einträge in der Kostenkontenliste</li>
+     * </ul>
+     * @param zustand int
+     */
     public void setZustand(int zustand)
     {
         this.zustand = zustand;
@@ -237,8 +268,7 @@ public class KostenkontenController implements Konstanten{
                 eingabeEnabled(false);
                 break;
             case NEU:
-                // NEU -Zustand
-                
+                // NEU -Zustand                
                 this.btnNeu.setDisable(false);
                 this.btnNeu.setText("DS Speichern");
                 this.btnAendern.setDisable(true);
@@ -271,8 +301,12 @@ public class KostenkontenController implements Konstanten{
                 this.tblAnzeige.setDisable(true);
                 break;            
         }
-    }
+    } // Ende setZustand()
     
+    /**
+     * Methode zeig gewählten Datensatz in der Tabelle 
+     * an und setzt den Zustand. 
+     */
     public void aktZustand()
     {
         if(!this.kostenListe.isEmpty())
@@ -290,19 +324,24 @@ public class KostenkontenController implements Konstanten{
             setZustand(LEER);
             leerenTextfelder();
         }
-    }
+    } // Ende aktZustand()
     
+    /**
+     * Methode enfernt alle Anzeigen in Textfeldern
+     */
     private void leerenTextfelder()
     {
         this.tfNummer.setText("");
-        this.tfBezeichnung.setText("");
-           
+        this.tfBezeichnung.setText("");           
     }
+    
+    /**
+     * Methode ermöglicht die Textfelder zu editieren oder nicht
+     * @param bool true - Editieren möglich
+     */
     private void eingabeEnabled(boolean bool)
     {        
         this.tfNummer.setEditable(bool);
-        this.tfBezeichnung.setEditable(bool);
-       
-    }
-    
-}
+        this.tfBezeichnung.setEditable(bool);       
+    }    
+} // Ende der Klasse KostenkontenController

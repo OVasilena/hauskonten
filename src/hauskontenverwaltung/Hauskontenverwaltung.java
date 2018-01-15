@@ -13,10 +13,12 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 /**
+ * Klasse beschreibt das Objekt der Hauskontenverwaltung
  *
- * @author opodlubnaja
+ * @author Olga Podlubnaja
  */
-public class Hauskontenverwaltung extends Application implements Konstanten {
+public class Hauskontenverwaltung extends Application
+        implements Konstanten {
 
     // Objekte der Hauskontenverwaltung
     private Stage fenster;
@@ -31,7 +33,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     private File datei;
     private File gefundenEDatei;
     private File gefundenKDatei;
-    private File gefundenBDatei;    
+    private File gefundenBDatei;
     private boolean aenderung;
 
     /**
@@ -45,107 +47,110 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
         aenderung = false;
     }
 
+    /**
+     * Einstiegpunkt der anwendung
+     *
+     * @param args String[]
+     */
     public static void main(String[] args) {
+        // Aufruf Konstruktor und start-Methode
         launch();
 
-    }
+    } // Ende main()-Methode
 
+    /**
+     * Methode liefert Objekt BorderPane
+     *
+     * @return root BorderPane
+     */
     public BorderPane getRoot() {
         return root;
     }
 
+    /**
+     * Methode liefert Objekt Fenster
+     *
+     * @return fenster Stage
+     */
     public Stage getFenster() {
         return fenster;
     }
+
     /**
-     * Methode starten GUI
-     * @param primaryStage
-     * @throws Exception 
+     * Methode enthält Anweisungen zum Aufbau der Oberfläche der
+     * Applikation. Bei Start der Anwendung wird erste Scene
+     * aufgebaut.
+     *
+     * @param primaryStage Stage
+     * @throws Exception wenn Fehler beim FXML-Datei laden
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
         fenster = primaryStage;
         loader = new FXMLLoader();
-        //loader.setLocation(getClass().getResource("StartPane.fxml"));
-        loader.setLocation(getClass().getResource("StartMenu.fxml"));
+        loader.setLocation(getClass()
+                .getResource("StartMenu.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
 
         // Fenstereigenschaften
         fenster.setScene(scene);
         fenster.setTitle("Hauskontenverwaltung");
-
-        //this.mcontroller = loader.getController();
-        //mcontroller.setVerwaltung(this);
         this.smcontroller = loader.getController();
         smcontroller.setVerwaltung(this);
-/*
-        File ordner = this.getDatei();
-        datei = ordner.getAbsoluteFile();
-
-        // ***** Eigentümerliste ****
-        gefundenEDatei = this.searchFile(datei, EDATEI);        
-        eigliste = ladenEDatei(gefundenEDatei);
-        mcontroller.setEigentListe(eigliste);
-        // ***** Kostenkontenliste *****
-        gefundenKDatei = this.searchFile(datei, KDATEI);
-        kkliste = ladenKDatei(gefundenKDatei);
-        mcontroller.setKostenliste(kkliste);
-        // ***** Buchungsliste *****
-        gefundenBDatei = this.searchFile(datei, BDATEI);
-        buchungsliste = ladenBDatei(gefundenBDatei);
-        mcontroller.setBuchungsListe(buchungsliste);
-*/
         fenster.show();
-    }
+    } // Ende start()-Methode
 
     /**
-     * Methode schließt das Fenster
+     * Methode wird bei Beenden der Anwendung ausgeführt
      */
     public void stop() {
-        if(!this.aenderung)
-        {
+        if (!this.aenderung) {
             System.exit(0);
         }
         Alert con = new Alert(Alert.AlertType.CONFIRMATION);
         con.setHeaderText("Datenänderung");
-        con.setContentText("Sollen die Änderungen gespeichert werden?");
-        con.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        con.setContentText
+                   ("Sollen die Änderungen gespeichert werden?");
+        con.getButtonTypes().setAll(ButtonType.YES,
+                ButtonType.NO);
         Optional erg = con.showAndWait();
         if (erg.get() == ButtonType.YES) {
             try {
                 if (gefundenEDatei == null) {
-                    gefundenEDatei = new File(datei + "\\" + EDATEI + "_" + datei.getName() + ".stm");
+                    gefundenEDatei = new File(datei + "\\" 
+                            + EDATEI + "_" + datei.getName() 
+                            + ".stm");
                 }
                 if (gefundenBDatei == null) {
-                    gefundenBDatei = new File(datei + "\\" + BDATEI + "_" + datei.getName() + ".dat");
+                    gefundenBDatei = new File(datei + "\\" 
+                            + BDATEI + "_" + datei.getName() 
+                            + ".dat");
                 }
                 if (gefundenKDatei == null) {
-                    gefundenKDatei = new File(datei + "\\" + KDATEI + "_" + datei.getName() + ".stm");
+                    gefundenKDatei = new File(datei + "\\" 
+                            + KDATEI + "_" + datei.getName() 
+                            + ".stm");
                 }
-
                 eigliste.speichernListe(gefundenEDatei);
                 buchungsliste.speichernListe(gefundenBDatei);
                 kkliste.speichernListe(gefundenKDatei);
 
             } catch (IOException ioe) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Datei kann nich gespeichert werden");
+                alert.setTitle("Datei kann nich gespeichert" 
+                                + "werden");
                 alert.setHeaderText(ioe.getMessage());
                 alert.showAndWait();
             }
         } else {
             System.exit(0);
         }
-
-    }
-    public void setMController(MenuController mc)
-    {
-        this.mcontroller = mc;
-    }
+    } // Ende stop()-Methode
 
     /**
-     * Methode liefert die eingelesenen Daten der Datei in der Eigentümerliste
+     * Methode liefert die eingelesenen Daten der Datei in der
+     * Eigentümerliste
      * @param file File
      * @return Eigentuemerliste
      */
@@ -168,10 +173,11 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             alert.showAndWait();
         }
         return eigliste;
-    }
+    } // Ende ladenEDatei(File)-Methode
 
     /**
-     * Methode liefert die eingelesenen Daten der Datei in der Kostenkontenliste     
+     * Methode liefert die eingelesenen Daten der Datei in der
+     * Kostenkontenliste
      * @param file File
      * @return Kostenkontenliste
      */
@@ -194,10 +200,11 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             alert.showAndWait();
         }
         return kkliste;
-    }
+    } // Ende ladeKDatei(File)-Methode
 
     /**
-     * Methode liefert die eingelesenen Daten der Datei in der Buchungsliste     
+     * Methode liefert die eingelesenen Daten der Datei in der
+     * Buchungsliste
      * @param file File
      * @return Buchungsliste
      */
@@ -220,10 +227,10 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             alert.showAndWait();
         }
         return buchungsliste;
-    }
+    } // Ende ladenBDatei(File)-Methode
 
     /**
-     * Methode sucht nach einer Datei und gibt Dateipfad zurück     
+     * Methode sucht nach einer Datei und gibt Dateipfad zurück
      * @param dir File
      * @param find String
      * @return File
@@ -231,27 +238,21 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     public File searchFile(File dir, String find) {
         File matches = null;
         File[] files = dir.listFiles();
-
         String temp = "";
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
-                temp = files[i].getName();
-                //if (files[i].getName().equalsIgnoreCase(find)) { 
+                temp = files[i].getName();                
                 if (temp.contains(find)) {
-                    matches = files[i];
-                    //System.out.println(files[i].getName());
+                    matches = files[i];                   
                     break;
-
                 }
-
             }
         }
-
         return matches;
-    }
+    } // Ende searchFile(File,String)-Methode
 
     /**
-     * Methode liefert Ordnerpfad ausgewälten Verzeichnises     
+     * Methode liefert Ordnerpfad ausgewälten Verzeichnises
      * @return selectedDirectory File
      */
     public File getDatei() {
@@ -263,7 +264,7 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
                 = fc.showDialog(this.getFenster());
 
         if (selectedDirectory == null) {
-            //System.out.println("No Directory selected");
+            
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Ordner nicht gewählt");
             alert.setHeaderText("Bitte wählen Sie einen Verzeichnis: ");
@@ -271,18 +272,14 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
             Optional erg = alert.showAndWait();
             if (erg.get() == ButtonType.YES) {
                 getDatei();
-
             }
             if (erg.get() == ButtonType.NO) {
                 System.exit(0);
             }
             alert.showAndWait();
-        } else {
-            //System.out.println(selectedDirectory.getAbsolutePath());
-        }
-
+        } 
         return selectedDirectory;
-    }
+    } // Ende getDatei()-Methode
 
     /**
      * Methode setzt die Änderung
@@ -293,21 +290,32 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
     }
 
     /**
-     * Methode liefert die Änderung     
+     * Methode liefert die Änderung
      * @return aenderung
      */
     public boolean getAenderung() {
         return aenderung;
     }
+            
+    /**
+     * Methode setzt MenuController
+     * @param mc MenuController
+     */
+    public void setMController(MenuController mc) {
+        this.mcontroller = mc;
+    }
     
-    public void datenLaden()
-    {
-        
+    /**
+     * Methode liest die Daten aus Dateien und speichert diese 
+     * in den Listen und übergibt MenuController weiter.
+     */
+    public void datenLaden() {
+
         File ordner = this.getDatei();
         datei = ordner.getAbsoluteFile();
 
         // ***** Eigentümerliste ****
-        gefundenEDatei = this.searchFile(datei, EDATEI);        
+        gefundenEDatei = this.searchFile(datei, EDATEI);
         eigliste = ladenEDatei(gefundenEDatei);
         mcontroller.setEigentListe(eigliste);
         // ***** Kostenkontenliste *****
@@ -318,7 +326,5 @@ public class Hauskontenverwaltung extends Application implements Konstanten {
         gefundenBDatei = this.searchFile(datei, BDATEI);
         buchungsliste = ladenBDatei(gefundenBDatei);
         mcontroller.setBuchungsListe(buchungsliste);
-
-    }
-
-}
+    } // Ende datenLaden()-Methode
+} // Ender der Klasse Hauskontenverwaltung

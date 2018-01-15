@@ -14,9 +14,7 @@
     fx:controller="hauskontenverwaltung.StartMenuController">
     <stylesheets>
         <URL value="@style.css"/>
-    </stylesheets>
-    
-    
+    </stylesheets> 
     <top>    
         <MenuBar >     
             <Menu text="Objekt" >
@@ -30,8 +28,6 @@
         </MenuBar>     
     </top>
     <center>
-    
-    
         <AnchorPane styleClass="startPane">
             
             <Label text="HKV 0.0.1"

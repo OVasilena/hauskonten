@@ -4,31 +4,29 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class enthält alle Ereignisroutinen, um auf 
  * Aktionen in der Benutzeroberfäche zu reagieren. 
- * @author opodlubnaja
+ * @author Olga Podlubnaja
  */
-public class MenuController implements Konstanten{        
-    
+public class MenuController implements Konstanten {
     
     private AnchorPane centerPane;  
     private EigentuemerController egcontroller;
     private BuchungController bcontroller;
     private KostenkontenController kkcontroller;
-    private Hauskontenverwaltung hkverwaltung;
-    private BorderPane border;
-    //boolean isliste = false;    
+    
+    private BorderPane border;   
         
     public void initialize()
     {
     }
-        
+    
+    // Referenz auf Hauskostenverwaltung
+    private Hauskontenverwaltung hkverwaltung;
     /**
      * Methode setzt die Referenz
      * @param hv Hauskontenverwaltung
@@ -38,7 +36,8 @@ public class MenuController implements Konstanten{
         this.hkverwaltung = hv;
     }
     
-    private Eigentuemerliste eliste;
+    // Referenz auf Eigentuemerliste
+    private Eigentuemerliste eliste;    
     /**
      * Methode setzt die Referenz
      * @param el Eigentuemerliste
@@ -47,6 +46,8 @@ public class MenuController implements Konstanten{
     {
         this.eliste = el;
     }
+    
+    // Referenz auf Buchungsliste
     private Buchungsliste buchungsliste;
     /**
      * Methode setzt die Referenz
@@ -56,6 +57,8 @@ public class MenuController implements Konstanten{
     {
         this.buchungsliste = bl;
     }
+    
+    // Referenz auf Kostenkontenliste
     private Kostenkontenliste kostenliste;
     /**
      * Methode setzt die Referenz 
@@ -67,19 +70,23 @@ public class MenuController implements Konstanten{
     }
 
     /**
-     * Ereignismethode nach Klick auf Menüpunkt Stammdaten-> Eigentümer
-     * @param actionEvent
-     * @throws IOException 
+     * Ereignismethode nach Klick auf Menüpunkt 
+     * Stammdaten - Eigentümer
+     * @param actionEvent ActionEvent
+     * @throws IOException wenn Fehler beim FXML-Datei laden
      */
     @FXML
-    public void handleEigentuemerverwaltung(ActionEvent actionEvent) throws Exception   {  
-        
+    public void handleEigentuemerverwaltung
+                      (ActionEvent actionEvent) throws Exception   
+    {  
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Eigentuemer.fxml"));        
+        loader.setLocation(getClass()
+                            .getResource("Eigentuemer.fxml"));        
         centerPane = loader.load();        
         border = hkverwaltung.getRoot();        
         border.setCenter(centerPane);
-        hkverwaltung.getFenster().setTitle("Eigentümerverwaltung");        
+        hkverwaltung.getFenster()
+                            .setTitle("Eigentümerverwaltung");        
         
         egcontroller = loader.getController();        
         if(eliste.isEmpty()) egcontroller.setZustand(LEER);   
@@ -88,35 +95,44 @@ public class MenuController implements Konstanten{
     }
     
     /**
-     * Ereignismethode nach Klick auf den Menüpunkt Stammdaten -> Kostenkonten
-     * @param actionEvent
-     * @throws IOException 
+     * Ereignismethode nach Klick auf den Menüpunkt 
+     * Stammdaten - Kostenkonten
+     * @param actionEvent ActionEvent
+     * @throws IOException wenn Fehler beim FXML-Datei laden
      */
     @FXML
-    public void handleKostenkonten(ActionEvent actionEvent) throws IOException {
-              
+    public void handleKostenkonten
+                    (ActionEvent actionEvent) throws IOException 
+    {     
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Kostenkonten.fxml"));        
+        loader.setLocation(getClass()
+                            .getResource("Kostenkonten.fxml"));        
         centerPane = loader.load();      
         border = hkverwaltung.getRoot();
         border.setCenter(centerPane);
-        hkverwaltung.getFenster().setTitle("Kostenkontenverwaltung");
+        
+        hkverwaltung.getFenster()
+                            .setTitle("Kostenkontenverwaltung");
         
         kkcontroller = loader.getController();
         if(kostenliste.isEmpty()) kkcontroller.setZustand(LEER);          
         kkcontroller.setKostenliste(kostenliste);
         kkcontroller.setHausVerwaltung(hkverwaltung);
     }
+                    
     /**
-     * Ereignismethode nach Klick auf den Menüpunkt Buchhaltung -> Buchen
-     * @param actionEvent
-     * @throws IOException 
+     * Ereignismethode nach Klick auf den Menüpunkt 
+     * Buchhaltung - Buchen
+     * @param actionEvent ActionEvent
+     * @throws IOException wenn Fehler beim FXML-Datei laden
      */
     @FXML
-    public void handleBuchung(ActionEvent actionEvent) throws IOException {
-        
+    public void handleBuchung(ActionEvent actionEvent) 
+                                              throws IOException 
+    {        
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("Buchung.fxml"));
+        loader.setLocation(getClass()
+                            .getResource("Buchung.fxml"));
         centerPane = loader.load();        
         border = hkverwaltung.getRoot();
         border.setCenter(centerPane);
@@ -128,5 +144,5 @@ public class MenuController implements Konstanten{
         bcontroller.setKListe(kostenliste);
         bcontroller.setHausVerwaltung(hkverwaltung);
     }   
-}
+} // Ende der Klasse MenuController
 

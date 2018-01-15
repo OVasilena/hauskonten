@@ -5,13 +5,18 @@
 
 .startPane {
     -fx-padding: 10px;
-    -fx-background-image: url("background_image.jpg");
+    -fx-background-image: url("/img/background_image.jpg");
     -fx-background-size: 640 640;
 
 }
+.objectPane {
+    -fx-padding: 10px;
+    -fx-background-image: url("/img/haus-object.jpg");
+    -fx-background-size: 640 640; 
+}
 
 .eigPane, .kostenPane, .buchPane {
-    -fx-background-color: lightblue;
+    -fx-background-color: #ADD8E6;
     -fx-padding: 10px;
 }
 
@@ -26,8 +31,6 @@
     -fx-font-size: 1.4em;
     -fx-alignment: CENTER;
 }
-
-
 
 #dpDate, #tfKontonr, #tfBeschreibung {
     -fx-pref-width: 200px;
@@ -50,14 +53,12 @@
     -fx-pref-width: 100px;
 }
 
-
-
 #tblAnzeige {
     -fx-pref-width: 600px;
     -fx-pref-height: 350px;
 }
 
-#colNummer {
+#colNummer, colNummerKonto, .colNummerBuchung {
     -fx-pref-width: 100px;
     -fx-alignment: CENTER;
 }
@@ -65,7 +66,6 @@
 #colName {
     -fx-pref-width: 210px;
     -fx-alignment: CENTER_LEFT;
-
 }
 
 #colWhgnummer {
@@ -74,12 +74,37 @@
 }
 
 #colKontostand {
-    -fx-pref-width: 100px;
+    -fx-pref-width: 120px;
     -fx-alignment: CENTER_RIGHT;
 }
 
 
+.colBezeichnungKonto
+{   
+    -fx-pref-width: 370px;
+    -fx-alignment: CENTER_LEFT;
+}
+.colKontonummerKonto {
+    -fx-pref-width: 150px;
+    -fx-alignment: CENTER_RIGHT;
+}
 
+.colDatumBuchung {
+    -fx-pref-width: 120px;
+    -fx-alignment: CENTER;
+}
+.colBetragBuchung {
+    fx-pref-width: 150px;
+    -fx-alignment: CENTER_RIGHT;
+}
+.colArtBuchung {
+    -fx-pref-width: 70px;
+    -fx-alignment: CENTER;
+}
+.colBeschreibungBuchung {
+    -fx-pref-width: 220px;
+    -fx-alignment: CENTER_LEFT;
+}
 .egrid {
     -fx-hgap: 10px;
     -fx-vgap: 10px;
@@ -115,7 +140,14 @@
 
 .btnBuchung {
     -fx-pref-height: 100px;
+    -fx-background-color: linear-gradient(#1e9cb5, #7eb1b0);
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-padding: 5 30 5 30;
+    -fx-background-radius: 20;
 }
+
+
 
 .btnNeu, .btnAendern, .btnLoeschen {
     -fx-pref-height: 30px;
@@ -125,16 +157,6 @@
     -fx-padding: 5 30 5 30;
     -fx-background-radius: 20;
 
-}
-
-.btnNeu {
-}
-
-.btnAendern {
-
-}
-
-.btnLoeschen {
 }
 
 /* Info */
@@ -163,13 +185,25 @@
     -fx-font-weight: bolder;    
 }
 #lblStatus {
-    -fx-background-color: #9cb3b5;
+    -fx-background-color: #E8E8E8;
     -fx-pref-width: 600px;
-    -fx-font-weight: bold;
+    
     -fx-border-color: #1e9cb5;
-    -fx-border-width: 2px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #8B3E2F;
 }
 .lbl {
     -fx-pref-width: 120px;
     -fx-alignment: CENTER_RIGHT;
+}
+
+.lblGPobject {
+    -fx-pref-width: 120px;   
+    -fx-text-fill: white;
+    
+}
+.lblObject {   
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 1.2em;
 }

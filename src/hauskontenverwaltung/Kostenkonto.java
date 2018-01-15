@@ -12,12 +12,11 @@ import javafx.beans.property.SimpleStringProperty;
  * <li>Kontostand</li></ul>  
  * @author opodlubnaja
  */
-public class Kostenkonto implements Serializable {
+public class Kostenkonto implements Serializable, Konstanten {
     private String kontonummer;
     private String bezeichnung;
     private double kontostand;    
-    private double saldo = 0;
-    java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00"); 
+    private double saldo = 0;    
     
     /**
     * Standard Konstruktor
@@ -55,6 +54,10 @@ public class Kostenkonto implements Serializable {
         return this.kontonummer;
     }
     
+    /**
+     * Methode liefert die Property der Kontonummer
+     * @return SimpleStringProperty
+     */
      public SimpleStringProperty kontonummerProperty()
     {
         return new SimpleStringProperty(this.kontonummer);
@@ -78,20 +81,16 @@ public class Kostenkonto implements Serializable {
         return this.bezeichnung;
     }
     
+    /**
+     * Methode liefert die Property der Bezeichnung
+     * @return SimpleStringProperty
+     */
     public SimpleStringProperty bezeichnungProperty()
     {
         return new SimpleStringProperty(this.bezeichnung);
     }
  
     // --- Kontostand ---
-    /**
-     * Methode setzt den Kontostand des Kostenkonto
-     * @param buchung double
-     */
-    public void setKontostand(double buchung)
-    {
-        this.kontostand +=buchung;
-    }
     /**
      * Methode liefert aktuellen Kontostand des Kostenkonto
      * @return kontostand double
@@ -101,45 +100,55 @@ public class Kostenkonto implements Serializable {
         return this.kontostand;
     }
     
-    // --- Kontostand ---
     /**
-     * Methode setzt den Kontostand des Eigentümers
+     * Methode setzt den Kontostand des Eigentümers bei
+     * der Einzahlung
      * @param buchung double
      */
     public void setEinzahlen(double buchung)
     {
         this.kontostand +=buchung;
-       
-        
     }
      /**
      * Methode setzt den Kontostand des Eigentümers
+     * bei der Auszahlung
      * @param buchung double
      */
     public void setAuszahlen(double buchung)
     {
         this.kontostand -=buchung;
-        
-        
     }
     
+    /**
+     * Methode liefert die Property des Kontostandes
+     * @return SimpleDoubleProperty
+     */
     public SimpleDoubleProperty kontostandProperty()
     {
         return new SimpleDoubleProperty(this.kontostand);
     }
     
-    @Override
-    public String toString()
-    {
-        return "Kontonummer: " + this.getKontonummer()
-                + "\nBezeichnung: " + this.getBezeichnung()
-                + "\nKontostand: " + df.format(this.getKontostand()) 
-                + "\n";
-    }
-    
+    /**
+     * Methode liefert boolean-Wert bei Kontoabgleich
+     * true - Kontonummer exisitiert
+     * @param zahl String
+     * @return boolean
+     */
     public boolean isKonto(String zahl)
     {
         return this.getKontonummer().equals(zahl);
     }
     
-}
+    /**
+     * Methode gibt eine Zeichenkette mit den 
+     * Kostenkontoinformationen zurück
+     * @return Zeichenkette
+     */
+    @Override
+    public String toString()
+    {
+        return "Kontonummer: " + this.getKontonummer() + ", "
+               + "Bezeichnung: " + this.getBezeichnung() + ", "
+               + "Kontostand: " + DF.format(this.getKontostand());
+    } // Ende toString()
+} // Ende der Klasse Kostenkonto

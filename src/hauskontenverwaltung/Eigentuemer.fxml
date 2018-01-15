@@ -13,8 +13,8 @@
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
-    <children>
-        <HBox styleClass="hbox">
+
+        <HBox styleClass="hbox" layoutX="20" layoutY="20">
             <GridPane  styleClass="egrid">
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
@@ -66,40 +66,31 @@
                 <Button fx:id="btnLoeschen"
                        text="Löschen"
                        onAction="#handleLoeschen"
-                       styleClass="btnLoeschen">
-                    <tooltip>
-                        <Tooltip text="Stammdaten löschen" styleClass="tooltip"/>
-                    </tooltip>
+                       styleClass="btnLoeschen">                    
                 </Button>
-            </VBox>               
-            
+            </VBox> 
         </HBox>
-            <HBox layoutX="20" layoutY="190">
-                <Label fx:id="lblStatus" text="Das ist die Statuszeile!"/>
-            </HBox>
+        <HBox layoutX="20" layoutY="190">
+            <Label fx:id="lblStatus" text="Das ist die Statuszeile!"/>
+        </HBox>
             <!-- *** Tabellenbebereich (ScrollPane) *** -->
         <ScrollPane layoutX="20" layoutY="230" >
         <TableView fx:id="tblAnzeige" >
             <columns>
-                <TableColumn fx:id="colNummer" text="Kontonummer"
+                <TableColumn fx:id="colNummer" text="Kontonummer"                             
                              resizable="false" editable="false"/>
-                <TableColumn fx:id="colName" text="Eigentümername"
+                <TableColumn fx:id="colName" text="Eigentümername"                             
                              resizable="false" editable="false"/>
-                <TableColumn fx:id="colWhgnummer" text="Wohnungsnummer"
+                <TableColumn fx:id="colWhgnummer" text="Wohnungsnummer"                             
                              resizable="false" editable="false"/>
-                <TableColumn fx:id="colKontostand" text="Kontostand"
+                <TableColumn fx:id="colKontostand" text="Kontostand"                             
                              resizable="false" editable="false"/>
             </columns>
         </TableView>
     </ScrollPane>
-        <HBox layoutX="20" layoutY="580">
-            <Label fx:id="lblStand" text="Hier wird Gesamt Kontostand angezeigt"/>
-        </HBox>       
-       
-    </children>
-    
-    
-   
+    <HBox layoutX="20" layoutY="580">
+        <Label fx:id="lblStand" text="Gesamtkontostand"/>
+    </HBox>  
 </AnchorPane>
     
     

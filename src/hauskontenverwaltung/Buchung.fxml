@@ -10,9 +10,9 @@
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
-    <children>
-         <HBox layoutX="20" layoutY="25" styleClass="hbox">
-            <GridPane  styleClass="egrid" layoutX="40" layoutY="25">
+    
+         <HBox  layoutY="20" styleClass="hbox">
+            <GridPane  styleClass="egrid" >
                 <Label text="Kontonummer: "
                        styleClass="lbl" 
                        GridPane.columnIndex="0" 
@@ -34,7 +34,7 @@
                        GridPane.rowIndex="0"
                        fx:id="tfKontonr"/>
                     
-                <DatePicker fx:id="dpDate"                         
+                <DatePicker fx:id="dpDate" 
                         GridPane.columnIndex="1" 
                         GridPane.rowIndex="1"/>     
                 <TextField fx:id="tfBeschreibung"
@@ -42,7 +42,7 @@
                        GridPane.rowIndex="2"/>
                 <HBox GridPane.columnIndex="1" 
                        GridPane.rowIndex="3"
-                        styleClass ="hboxBuch">
+                       styleClass ="hboxBuch">
 
                         <TextField fx:id="tfBetrag"/>
                         <fx:define>
@@ -68,17 +68,22 @@
         <TableView fx:id="tblAnzeige" >
             <columns>
                 <TableColumn fx:id="colDatum" text="Datum"
+                             styleClass="colDatumBuchung"
                              resizable="false" editable="false"/>
                 <TableColumn fx:id="colBetrag" text="Betrag"
+                             styleClass="colBetragBuchung"
                              resizable="false" editable="false"/>
                 <TableColumn fx:id="colBuchungsart" text="E/A"
+                             styleClass="colArtBuchung"
                              resizable="false" editable="false"/>  
                 <TableColumn fx:id="colBeschreibung" text="Beschreibung"
+                             styleClass="colBeschreibungBuchung"
                              resizable="false" editable="false"/>   
                 <TableColumn fx:id="colKontonummer" text="Kontonummer"
+                             styleClass="colNummerBuchung"
                              resizable="false" editable="false"/>             
             </columns>
         </TableView>
         </ScrollPane>
-    </children>
+    
 </AnchorPane>

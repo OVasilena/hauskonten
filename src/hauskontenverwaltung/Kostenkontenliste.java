@@ -66,7 +66,7 @@ public class Kostenkontenliste {
     
     /**
      * Methode berechnen Gesamtkontostand 
-     * @return 
+     * @return double gstand
      */
     public double getGesamtStand()
     {
@@ -140,8 +140,8 @@ public class Kostenkontenliste {
     /**
      * Methode ersetzt einen Eigentümer an der Index-Stelle
      * @param index int
-     * @param e Eigentuemer
-     * @return Eigentuemer
+     * @param k Kostenkonto
+     * @return Kostenkonto
      */
     public Kostenkonto setKostenkonto(int index, Kostenkonto k)
     {
